@@ -1,0 +1,31 @@
+---
+// Renders a LocalizedText for ALL site languages at once; global.css shows only
+// the active one (via [data-lang] on <html>), so the toggle is instant.
+// For every site language it emits a span — missing translations fall back to the
+// default language, so a partially-translated field still renders in every mode.
+import type { HTMLTag } from 'astro/types'
+import { LANGS } from '../../lib/site'
+import { pick, langClass } from '../../lib/i18n'
+import type { LocalizedText } from '../../lib/site'
+
+interface Props {
+  text?: LocalizedText
+  /** Wrapper tag — 'h1'..'h3', 'p', etc. Defaults to inline span. */
+  as?: HTMLTag
+  class?: string
+}
+const { text, as: Tag = 'span', class: className } = Astro.props
+const has = !!text && Object.keys(text).length > 0
+---
+
+{
+  has && (
+    <Tag class={className}>
+      {LANGS.map((lang) => (
+        <span class={langClass(lang)} lang={lang}>
+          {pick(text, lang)}
+        </span>
+      ))}
+    </Tag>
+  )
+}

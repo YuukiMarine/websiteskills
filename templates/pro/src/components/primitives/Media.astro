@@ -1,0 +1,39 @@
+---
+// Resolves a schema `Media` object to markup.
+//   image / video → real asset (customer-provided src)
+//   unsplash / placeholder → themed placeholder (Phase 1). Phase 5 fetches unsplash.
+// The caller sizes/shapes it via `class` (e.g. "aspect-video rounded-2xl w-full").
+import type { Media } from '../../lib/site'
+import { pick } from '../../lib/i18n'
+import Icon from './Icon.astro'
+
+interface Props {
+  media?: Media
+  class?: string
+}
+const { media, class: className = '' } = Astro.props
+const alt = pick(media?.alt)
+const isImg = media?.type === 'image' && !!media.src
+const isVideo = media?.type === 'video' && !!media.src
+---
+
+{
+  media && (
+    <div class={`relative overflow-hidden bg-[var(--color-surface-muted)] ${className}`}>
+      {isImg ? (
+        <img src={media.src} alt={alt} class="h-full w-full object-cover" loading="lazy" decoding="async" />
+      ) : isVideo ? (
+        <video class="h-full w-full object-cover" src={media.src} autoplay muted loop playsinline />
+      ) : (
+        <div class="media-placeholder h-full w-full min-h-48" role="img" aria-label={alt || undefined}>
+          <Icon name={media.type === 'unsplash' ? 'image' : 'sparkles'} class="h-10 w-10 opacity-50" />
+        </div>
+      )}
+      {media.credit && (
+        <span class="pointer-events-none absolute right-1.5 bottom-1 rounded bg-black/45 px-1.5 py-0.5 text-[10px] leading-none text-white/80">
+          {media.credit}
+        </span>
+      )}
+    </div>
+  )
+}

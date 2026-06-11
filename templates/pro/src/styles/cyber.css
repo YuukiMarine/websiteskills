@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Cyberpunk — neon on near-black, grid floor, CRT scanlines, clipped neon cards,
+   glitchy entrances, pulsing glow. Scoped to [data-template="cyber"].
+   ═══════════════════════════════════════════════════════════════════════════ */
+[data-template='cyber'] {
+  --color-primary: #00f0ff; /* neon cyan */
+  --color-primary-hover: #5ef7ff;
+  --color-primary-active: #00c4d6;
+  --color-primary-light: rgba(0, 240, 255, 0.12);
+  --color-accent: #ff2bd6; /* magenta */
+  --color-ink: #e6f9ff;
+  --color-muted-ink: #7da3b0;
+  --color-surface: #0a0a12;
+  --color-surface-muted: #0f0f1c;
+  --color-border: rgba(0, 240, 255, 0.28);
+  --color-dark: #05050b;
+  --font-heading: 'Orbitron Variable', 'Space Grotesk Variable', sans-serif;
+  --font-body: 'Space Grotesk Variable', system-ui, sans-serif;
+  --radius: 2px;
+  --shadow-card: 0 0 0 1px rgba(0, 240, 255, 0.18);
+  --shadow-card-hover: 0 0 26px -2px rgba(0, 240, 255, 0.5);
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+}
+
+[data-template='cyber'] body {
+  color: var(--color-ink);
+  background-color: var(--color-surface);
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 50% -10%, rgba(255, 43, 214, 0.14), transparent 60%);
+  background-size: 42px 42px, 42px 42px, 100% 100%;
+}
+
+/* full-screen CRT scanlines (non-interactive) */
+[data-template='cyber'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, 0.22) 2px 3px);
+  opacity: 0.3;
+}
+
+[data-template='cyber'] h1,
+[data-template='cyber'] h2,
+[data-template='cyber'] h3 {
+  color: var(--color-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+}
+
+[data-template='cyber'] .ss-eyebrow {
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(0, 240, 255, 0.08);
+  box-shadow: 0 0 14px -2px rgba(0, 240, 255, 0.6);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+}
+
+/* clipped, glowing cards */
+[data-template='cyber'] .ss-card {
+  background: linear-gradient(160deg, rgba(0, 240, 255, 0.05), rgba(255, 43, 214, 0.04));
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+[data-template='cyber'] .ss-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-primary);
+  transform: translateY(-3px);
+}
+
+[data-template='cyber'] .bg-primary {
+  color: #04121a;
+}
+[data-template='cyber'] .bg-muted {
+  background-color: var(--color-surface-muted);
+}
+[data-template='cyber'] .bg-dark {
+  background-color: #05050b;
+}
+[data-template='cyber'] .media-placeholder {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.12), rgba(255, 43, 214, 0.12));
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+}
+
+/* glitchy entrance */
+.js[data-template='cyber'] .animate-on-scroll {
+  opacity: 0;
+  transform: translateY(16px) skewX(-3deg);
+  transition:
+    opacity 0.5s steps(8, end),
+    transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.js[data-template='cyber'] .animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* neon pulse on the hero headline */
+[data-template='cyber'] .ss-hero h1 {
+  animation: cyberPulse 3s ease-in-out infinite;
+}
+@keyframes cyberPulse {
+  0%,
+  100% {
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+  }
+  50% {
+    text-shadow:
+      0 0 22px rgba(0, 240, 255, 0.95),
+      0 0 10px rgba(255, 43, 214, 0.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-template='cyber'] .ss-hero h1 {
+    animation: none;
+  }
+}

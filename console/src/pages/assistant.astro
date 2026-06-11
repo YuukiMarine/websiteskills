@@ -1,0 +1,165 @@
+---
+import '../styles/global.css'
+import { Icon } from 'astro-icon/components'
+
+// The student-facing deploy assistant: a public, guided, 10-step flow.
+// No login — it just walks a beginner from "nothing" to "a live AI website builder".
+const PROMPT = `你好！请帮我安装 “Sitesmith” 建站技能，然后我们用它来做网站。
+
+请在终端运行这条命令来安装：
+curl -fsSL https://raw.githubusercontent.com/YuukiMarine/websiteskills/main/remote-install.sh | bash
+
+装好后，确认 “sitesmith” 出现在你的 skills 列表里，并告诉我。之后我会让你“帮我建一个网站”。`
+
+type Step = {
+  icon: string
+  title: string
+  body: string
+  href?: string
+  hrefLabel?: string
+  copy?: string
+}
+const steps: Step[] = [
+  { icon: 'rocket', title: '准备开始', body: '这个助手会带你一步步把“会建网站的 AI”部署上线。全程约 30 分钟，不需要任何编程基础 —— 跟着做、做完一步勾一步即可。' },
+  { icon: 'user-plus', title: '注册腾讯云', body: '打开腾讯云，点右上角注册一个账号。', href: 'https://www.tencentcloud.com/zh', hrefLabel: '打开腾讯云' },
+  { icon: 'credit-card', title: '登录并绑定信用卡', body: '完成账号登录与信用卡绑定，下一步购买服务器会用到。' },
+  { icon: 'server', title: '购买服务器（选 Hermes）', body: '进入活动页购买并配置服务器。系统镜像请选择 Hermes —— 它已预装好 AI Agent，开机即用。', href: 'https://www.tencentcloud.com/act/pro/intl-openclaw#openclaw', hrefLabel: '购买服务器' },
+  { icon: 'sparkles', title: '获取 AI 能力（z.ai）', body: '打开 z.ai 绑定信用卡，订阅 GLM Coding Plan（每 5 小时一档额度，日常建站足够）。复制保存好你的 API Key。', href: 'https://z.ai', hrefLabel: '打开 z.ai' },
+  { icon: 'settings-2', title: '配置 Agent', body: '回到腾讯云控制台，在服务器上把 API Key 填进去（接口地址用 https://api.z.ai/api/coding/paas/v4），并连接你的消息平台（Telegram 或微信）。', href: 'https://console.tencentcloud.com/', hrefLabel: '腾讯云控制台' },
+  { icon: 'globe', title: '准备一个域名', body: '想一个喜欢的域名，到 GoDaddy 查询并购买，然后把域名解析（A 记录）指向你的服务器 IP。', href: 'https://www.godaddy.com', hrefLabel: '打开 GoDaddy' },
+  { icon: 'message-square', title: '唤醒 Agent + 装建站技能', body: '在 Telegram/微信 上跟你的 Agent 打个招呼、完成初始化。然后把下面这段话复制发给它，它会自动装好建站技能：', copy: PROMPT },
+  { icon: 'wand-2', title: '对话建站', body: '对你的 Agent 说“帮我建一个网站”，它会问你几个问题（业务、风格、语言），然后自动生成、预览、上线。' },
+  { icon: 'party-popper', title: '大功告成 🎉', body: '你的网站已经上线！以后想改什么，继续跟 Agent 说就行 —— 永远不用碰代码。' },
+]
+---
+
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>部署助手 · Sitesmith</title>
+  </head>
+  <body class="min-h-dvh">
+    <header class="sticky top-0 z-10 border-b border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-bg)_85%,transparent)] backdrop-blur">
+      <div class="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
+        <span class="grid h-8 w-8 place-items-center rounded-lg bg-primary font-bold text-white">S</span>
+        <span class="font-semibold">部署助手</span>
+        <div class="ml-auto flex items-center gap-3">
+          <span id="progressLabel" class="text-sm text-[var(--color-muted)]">0 / {steps.length}</span>
+          <div class="h-1.5 w-32 overflow-hidden rounded-full bg-[var(--color-panel-2)]">
+            <div id="progressBar" class="h-full w-0 rounded-full bg-primary transition-all duration-300"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-3xl px-4 py-8">
+      <h1 class="text-2xl font-bold tracking-tight md:text-3xl">把你的 AI 建站助手部署上线</h1>
+      <p class="mt-2 text-[var(--color-muted)]">10 步,基础一般也能在 30 分钟内搞定。每完成一步,勾选它。</p>
+
+      <ol class="mt-8 space-y-3">
+        {
+          steps.map((s, i) => (
+            <li class="step panel p-5" data-step={i}>
+              <div class="flex items-start gap-4">
+                <span class="step-num grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[var(--color-border)] text-sm font-bold text-[var(--color-muted)]">
+                  {i + 1}
+                </span>
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-2">
+                    <Icon name={`lucide:${s.icon}`} class="h-4 w-4 text-primary" />
+                    <h2 class="font-semibold">{s.title}</h2>
+                  </div>
+                  <p class="mt-1.5 text-sm leading-relaxed text-[var(--color-muted)]">{s.body}</p>
+
+                  {s.copy && (
+                    <div class="mt-3">
+                      <pre class="copy-src whitespace-pre-wrap rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-3 text-xs leading-relaxed text-[var(--color-fg)]">{s.copy}</pre>
+                      <button class="copy-btn btn btn-ghost mt-2 h-9 text-xs" type="button">
+                        <Icon name="lucide:copy" class="h-3.5 w-3.5" /> 复制这段发给 Agent
+                      </button>
+                    </div>
+                  )}
+
+                  <div class="mt-3 flex flex-wrap items-center gap-3">
+                    {s.href && (
+                      <a href={s.href} target="_blank" rel="noopener" class="btn btn-primary h-9 text-xs">
+                        {s.hrefLabel} <Icon name="lucide:external-link" class="h-3.5 w-3.5" />
+                      </a>
+                    )}
+                    <label class="ml-auto flex cursor-pointer items-center gap-2 text-sm text-[var(--color-muted)]">
+                      <input type="checkbox" class="step-done accent-[var(--color-primary)]" data-step={i} />
+                      完成此步
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <p class="mt-8 text-center text-xs text-[var(--color-muted)]">
+        遇到问题?把那一步的截图发给你的老师或我们的 Agent,它会帮你看。
+      </p>
+    </main>
+
+    <script is:inline define:vars={{ total: steps.length }}>
+      const KEY = 'sitesmith-assistant-progress'
+      const done = new Set(JSON.parse(localStorage.getItem(KEY) || '[]'))
+      const bar = document.getElementById('progressBar')
+      const label = document.getElementById('progressLabel')
+
+      function refresh() {
+        document.querySelectorAll('.step').forEach((el) => {
+          const i = Number(el.getAttribute('data-step'))
+          const on = done.has(i)
+          el.classList.toggle('is-done', on)
+          el.style.opacity = on ? '0.6' : '1'
+          const num = el.querySelector('.step-num')
+          if (num) {
+            num.classList.toggle('!border-primary', on)
+            num.classList.toggle('!bg-primary', on)
+            num.classList.toggle('!text-white', on)
+            num.textContent = on ? '✓' : String(i + 1)
+          }
+          const box = el.querySelector('.step-done')
+          if (box) box.checked = on
+        })
+        const n = done.size
+        label.textContent = n + ' / ' + total
+        bar.style.width = (n / total) * 100 + '%'
+      }
+
+      document.querySelectorAll('.step-done').forEach((box) => {
+        box.addEventListener('change', () => {
+          const i = Number(box.getAttribute('data-step'))
+          if (box.checked) done.add(i)
+          else done.delete(i)
+          localStorage.setItem(KEY, JSON.stringify([...done]))
+          refresh()
+        })
+      })
+
+      document.querySelectorAll('.copy-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const src = btn.parentElement.querySelector('.copy-src')
+          try {
+            await navigator.clipboard.writeText(src.textContent)
+            const old = btn.innerHTML
+            btn.textContent = '✓ 已复制'
+            setTimeout(() => (btn.innerHTML = old), 1800)
+          } catch (e) {
+            const r = document.createRange()
+            r.selectNode(src)
+            window.getSelection().removeAllRanges()
+            window.getSelection().addRange(r)
+          }
+        })
+      })
+
+      refresh()
+    </script>
+  </body>
+</html>

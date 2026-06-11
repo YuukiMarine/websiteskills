@@ -1,0 +1,39 @@
+---
+import type { GallerySection } from '../../lib/site'
+import Section from '../Section.astro'
+import SectionHeader from '../SectionHeader.astro'
+import T from '../primitives/T.astro'
+import Media from '../primitives/Media.astro'
+
+interface Props {
+  data: GallerySection
+}
+const { data } = Astro.props
+const variant = data.variant ?? 'grid'
+// Phase 1: masonry uses CSS columns; carousel falls back to a responsive grid.
+const masonry = variant === 'masonry'
+---
+
+<Section id={data.id} background={data.background ?? 'default'}>
+  <SectionHeader eyebrow={data.eyebrow} heading={data.heading} subheading={data.subheading} />
+
+  <div
+    class:list={[
+      'mt-12',
+      masonry ? 'columns-2 gap-4 md:columns-3 [&>*]:mb-4' : 'grid grid-cols-2 gap-4 md:grid-cols-3',
+    ]}
+  >
+    {
+      data.items.map((item) => (
+        <figure class="group relative overflow-hidden rounded-[var(--radius)]">
+          <Media media={item.media} class={masonry ? 'w-full' : 'aspect-square w-full'} />
+          {item.caption && (
+            <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-sm font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">
+              <T text={item.caption} />
+            </figcaption>
+          )}
+        </figure>
+      ))
+    }
+  </div>
+</Section>

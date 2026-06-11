@@ -1,0 +1,44 @@
+---
+import Console from '../layouts/Console.astro'
+import { isAuthed } from '../lib/auth'
+import { Icon } from 'astro-icon/components'
+import { listProjects } from '../lib/store'
+
+if (!isAuthed(Astro.cookies)) return Astro.redirect('/login')
+
+const projects = await listProjects()
+---
+
+<Console title="Sites" active="sites">
+  <a slot="actions" href="/new" class="btn btn-primary">
+    <Icon name="lucide:plus" class="h-4 w-4" /> New site
+  </a>
+
+  {
+    projects.length === 0 ? (
+      <div class="panel grid place-items-center px-6 py-16 text-center">
+        <Icon name="lucide:layout-grid" class="h-10 w-10 text-[var(--color-muted)]" />
+        <h2 class="mt-4 text-base font-semibold">No sites yet</h2>
+        <p class="mt-1 mb-5 max-w-sm text-sm text-[var(--color-muted)]">
+          Create your first site — a short setup, then build it by chatting with AI and
+          publish over Nginx.
+        </p>
+        <a href="/new" class="btn btn-primary">
+          <Icon name="lucide:plus" class="h-4 w-4" /> New site
+        </a>
+      </div>
+    ) : (
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p) => (
+          <a href={`/build/${p.id}`} class="panel block p-5 transition-colors hover:border-[var(--color-primary)]">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold">{p.name}</h3>
+              <span class="badge badge-idle">{p.status}</span>
+            </div>
+            <p class="mt-1 text-sm text-[var(--color-muted)]">{p.domain || 'no domain yet'}</p>
+          </a>
+        ))}
+      </div>
+    )
+  }
+</Console>

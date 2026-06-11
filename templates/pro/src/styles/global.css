@@ -1,0 +1,148 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/sora";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/orbitron";
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Design tokens. These are DEFAULTS. The renderer injects per-site overrides
+   for the same custom-property names on <html style="..."> (see lib/theme.ts),
+   which win by the cascade — so changing site.theme re-skins everything here.
+   ─────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Brand (overridden per-site) */
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-active: #3730a3;
+  --color-primary-light: #eef2ff;
+  --color-accent: #06b6d4;
+
+  /* Surfaces / ink (overridden per-site via neutral ramp) */
+  --color-ink: #0f172a;
+  --color-muted-ink: #475569;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-dark: #0f172a;
+  --color-dark-light: #1e293b;
+
+  /* Functional */
+  --color-success: #16a34a;
+  --color-warning: #ca8a04;
+  --color-error: #dc2626;
+
+  /* Typography (overridden per-site) */
+  --font-heading: 'Sora Variable', 'Inter Variable', system-ui, sans-serif;
+  --font-body: 'Inter Variable', system-ui, -apple-system, "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+
+  /* Shape (overridden per-site) */
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-full: 9999px;
+
+  /* Rhythm (overridden per-site by density) */
+  --section-py: 5rem;
+  --section-py-lg: 7rem;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 10px 30px -12px rgba(0, 0, 0, 0.18);
+  --shadow-lg: 0 20px 40px -16px rgba(0, 0, 0, 0.18);
+}
+
+/* ─── Base layer ─────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-family: var(--font-body);
+    scroll-behavior: smooth;
+  }
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-ink);
+    background-color: var(--color-surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-ink);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  button, [role="button"] { cursor: pointer; }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ─── Bilingual visibility (data-lang on <html>) ─────────────────────────────
+   <T> renders every language as an inline-contents span; CSS shows the active
+   one. display:contents keeps the chosen text in the parent's layout flow. */
+.i18n-en, .i18n-zh, .i18n-other { display: contents; }
+[data-lang="en"] .i18n-zh,
+[data-lang="en"] .i18n-other,
+[data-lang="zh"] .i18n-en,
+[data-lang="zh"] .i18n-other { display: none; }
+
+/* ─── Section background variants ────────────────────────────────────────── */
+.bg-default  { background-color: var(--color-surface); }
+.bg-muted    { background-color: var(--color-surface-muted); }
+.bg-dark     { background-color: var(--color-dark); color: #e2e8f0; }
+.bg-primary  { background-color: var(--color-primary); color: #fff; }
+.bg-gradient {
+  background:
+    radial-gradient(60% 80% at 15% 10%, color-mix(in srgb, var(--color-primary) 12%, transparent), transparent 70%),
+    radial-gradient(50% 60% at 95% 0%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 70%),
+    var(--color-surface);
+}
+.bg-dark h1, .bg-dark h2, .bg-dark h3, .bg-primary h1, .bg-primary h2, .bg-primary h3 { color: #fff; }
+
+/* ─── Section rhythm helper ──────────────────────────────────────────────── */
+.section-py { padding-top: var(--section-py); padding-bottom: var(--section-py); }
+@media (min-width: 1024px) {
+  .section-py { padding-top: var(--section-py-lg); padding-bottom: var(--section-py-lg); }
+}
+
+/* ─── Scroll-in animation system ─────────────────────────────────────────────
+   No-JS fallback: content is visible by default. The entrance animation only
+   engages once <html> has the `js` class (set inline in Layout before paint),
+   so a JS failure or a crawler never hides below-the-fold content. */
+.js .animate-on-scroll {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.js .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+.js .animate-on-scroll[data-delay="1"] { transition-delay: 80ms; }
+.js .animate-on-scroll[data-delay="2"] { transition-delay: 160ms; }
+.js .animate-on-scroll[data-delay="3"] { transition-delay: 240ms; }
+.js .animate-on-scroll[data-delay="4"] { transition-delay: 320ms; }
+.js .animate-on-scroll[data-delay="5"] { transition-delay: 400ms; }
+@media (prefers-reduced-motion: reduce) {
+  .js .animate-on-scroll { opacity: 1; transform: none; transition: none; }
+}
+
+/* ─── Decorative placeholder (Media type=placeholder) ────────────────────── */
+.media-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--color-primary) 14%, var(--color-surface)),
+      color-mix(in srgb, var(--color-accent) 14%, var(--color-surface)));
+  color: color-mix(in srgb, var(--color-primary) 60%, var(--color-ink));
+}

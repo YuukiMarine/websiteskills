@@ -1,0 +1,55 @@
+---
+import type { TeamSection } from '../../lib/site'
+import Section from '../Section.astro'
+import SectionHeader from '../SectionHeader.astro'
+import T from '../primitives/T.astro'
+import Media from '../primitives/Media.astro'
+import Icon from '../primitives/Icon.astro'
+
+interface Props {
+  data: TeamSection
+}
+const { data } = Astro.props
+const socialIcon: Record<string, string> = {
+  x: 'twitter',
+  linkedin: 'linkedin',
+  instagram: 'instagram',
+  facebook: 'facebook',
+  youtube: 'youtube',
+  github: 'github',
+  email: 'mail',
+  telegram: 'send',
+}
+---
+
+<Section id={data.id} background={data.background ?? 'default'}>
+  <SectionHeader eyebrow={data.eyebrow} heading={data.heading} subheading={data.subheading} />
+
+  <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      data.members.map((m, i) => (
+        <div class="animate-on-scroll text-center" data-delay={String((i % 3) + 1)}>
+          <Media media={m.photo} class="mx-auto aspect-square w-32 rounded-full" />
+          <h3 class="mt-4 text-base font-semibold text-[var(--color-ink)]">{m.name}</h3>
+          <T as="p" class="text-sm text-primary" text={m.role} />
+          {m.bio && <T as="p" class="mt-2 text-sm leading-relaxed text-[var(--color-muted-ink)]" text={m.bio} />}
+          {m.socials?.length ? (
+            <ul class="mt-3 flex justify-center gap-2">
+              {m.socials.map((s) => (
+                <li>
+                  <a
+                    href={s.href}
+                    aria-label={s.platform}
+                    class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-muted-ink)] hover:border-primary hover:text-primary"
+                  >
+                    <Icon name={socialIcon[s.platform] || 'link'} class="h-4 w-4" label={s.platform} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      ))
+    }
+  </div>
+</Section>

@@ -1,0 +1,46 @@
+---
+import type { TestimonialsSection } from '../../lib/site'
+import Section from '../Section.astro'
+import SectionHeader from '../SectionHeader.astro'
+import T from '../primitives/T.astro'
+import Media from '../primitives/Media.astro'
+import Icon from '../primitives/Icon.astro'
+
+interface Props {
+  data: TestimonialsSection
+}
+const { data } = Astro.props
+const single = (data.variant ?? 'grid') === 'single' || data.items.length === 1
+const gridClass = single ? 'max-w-2xl mx-auto' : 'sm:grid-cols-2 lg:grid-cols-3'
+---
+
+<Section id={data.id} background={data.background ?? 'default'}>
+  <SectionHeader eyebrow={data.eyebrow} heading={data.heading} subheading={data.subheading} />
+
+  <div class:list={['mt-14 grid gap-6', gridClass]}>
+    {
+      data.items.map((item, i) => (
+        <figure
+          class="ss-card animate-on-scroll flex flex-col rounded-[var(--radius)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card"
+          data-delay={String((i % 3) + 1)}
+        >
+          {item.rating && (
+            <div class="mb-3 flex gap-0.5 text-primary" aria-label={`${item.rating} out of 5`}>
+              {Array.from({ length: item.rating }).map(() => (
+                <Icon name="star" class="h-4 w-4 fill-current" />
+              ))}
+            </div>
+          )}
+          <T as="blockquote" class="flex-1 text-[15px] leading-relaxed text-[var(--color-ink)]" text={item.quote} />
+          <figcaption class="mt-5 flex items-center gap-3">
+            {item.avatar && <Media media={item.avatar} class="h-10 w-10 shrink-0 rounded-full" />}
+            <div>
+              <div class="text-sm font-semibold text-[var(--color-ink)]">{item.author}</div>
+              {item.role && <T as="div" class="text-xs text-[var(--color-muted-ink)]" text={item.role} />}
+            </div>
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</Section>

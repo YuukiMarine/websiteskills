@@ -1,0 +1,20 @@
+---
+// Thin wrapper over astro-icon's Lucide set. `name` is a kebab-case Lucide name
+// (schema's Icon type). Size/color come from the passed `class`.
+import { Icon as AstroIcon } from 'astro-icon/components'
+
+interface Props {
+  name: string
+  class?: string
+  /** Accessible label — omit to mark the icon decorative. */
+  label?: string
+}
+const { name, class: className = 'w-6 h-6', label } = Astro.props
+---
+
+<AstroIcon
+  name={`lucide:${name}`}
+  class={className}
+  aria-hidden={!label ? 'true' : undefined}
+  aria-label={label || undefined}
+/>

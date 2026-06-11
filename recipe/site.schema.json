@@ -1,0 +1,615 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sitesmith.dev/recipe/site.schema.json",
+  "title": "Sitesmith Site Definition",
+  "description": "The single source of truth for a generated website. An AI produces a JSON document conforming to this schema during the conversation phase; a renderer turns it into an Astro site. AI never writes code — it only fills this structure.",
+  "type": "object",
+  "required": ["meta", "theme", "brand", "sections"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Site-wide identity and SEO.",
+      "required": ["siteName", "description", "languages", "defaultLanguage"],
+      "additionalProperties": false,
+      "properties": {
+        "siteName": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "domain": { "type": "string", "description": "Bare domain, e.g. acme.com. Optional at generation time." },
+        "description": { "$ref": "#/$defs/LocalizedText", "description": "Meta description for SEO, ~150 chars per language." },
+        "keywords": { "type": "array", "items": { "type": "string" }, "maxItems": 12 },
+        "languages": {
+          "type": "array",
+          "description": "BCP-47 codes the site is published in. Order = display order of the language toggle.",
+          "items": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "defaultLanguage": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" },
+        "ogImage": { "$ref": "#/$defs/Media" },
+        "favicon": { "type": "string", "description": "Path or 'auto' to derive from brand logo." }
+      }
+    },
+
+    "theme": {
+      "type": "object",
+      "description": "Look-and-feel. Drives CSS variables; the same site.json can be re-rendered under any template that shares this schema.",
+      "required": ["template"],
+      "additionalProperties": false,
+      "properties": {
+        "template": {
+          "type": "string",
+          "description": "Which template package renders this site.",
+          "enum": ["pro", "newchinese", "cyber", "portfolio"]
+        },
+        "colorPreset": {
+          "type": "string",
+          "description": "Named palette shipped with the template. If set, primary/accent may be omitted.",
+          "examples": ["indigo", "emerald", "slate", "sunset", "mono"]
+        },
+        "primary": { "type": "string", "pattern": "^#([0-9a-fA-F]{6})$", "description": "Brand primary as hex." },
+        "accent": { "type": "string", "pattern": "^#([0-9a-fA-F]{6})$" },
+        "neutral": {
+          "type": "string",
+          "enum": ["slate", "gray", "zinc", "neutral", "stone"],
+          "description": "Tailwind neutral ramp for text/surfaces."
+        },
+        "font": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "heading": { "type": "string", "enum": ["Inter", "Sora", "Manrope", "Plus Jakarta Sans", "Space Grotesk", "Lora", "Noto Sans SC"] },
+            "body": { "type": "string", "enum": ["Inter", "Manrope", "IBM Plex Sans", "Source Sans 3", "Noto Sans SC"] }
+          }
+        },
+        "radius": { "type": "string", "enum": ["none", "sm", "md", "lg", "full"], "default": "md" },
+        "density": { "type": "string", "enum": ["compact", "comfortable", "spacious"], "default": "comfortable" },
+        "mode": { "type": "string", "enum": ["light", "dark", "auto"], "default": "light" }
+      }
+    },
+
+    "brand": {
+      "type": "object",
+      "required": ["name", "logo"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "logo": { "$ref": "#/$defs/Logo" },
+        "tagline": { "$ref": "#/$defs/LocalizedText" }
+      }
+    },
+
+    "nav": {
+      "type": "object",
+      "description": "Top navigation. If omitted, the renderer auto-derives links from section ids.",
+      "additionalProperties": false,
+      "properties": {
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "href"],
+            "additionalProperties": false,
+            "properties": {
+              "label": { "$ref": "#/$defs/LocalizedText" },
+              "href": { "type": "string", "description": "#section-id for in-page, or absolute path/URL." }
+            }
+          }
+        },
+        "cta": { "$ref": "#/$defs/Cta" },
+        "sticky": { "type": "boolean", "default": true },
+        "showLangToggle": { "type": "boolean", "default": true }
+      }
+    },
+
+    "sections": {
+      "type": "array",
+      "description": "Ordered page blocks. The renderer outputs them top-to-bottom. Pick only the section types that fit the customer's business.",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/HeroSection" },
+          { "$ref": "#/$defs/LogosSection" },
+          { "$ref": "#/$defs/FeaturesSection" },
+          { "$ref": "#/$defs/ServicesSection" },
+          { "$ref": "#/$defs/AboutSection" },
+          { "$ref": "#/$defs/StatsSection" },
+          { "$ref": "#/$defs/GallerySection" },
+          { "$ref": "#/$defs/PricingSection" },
+          { "$ref": "#/$defs/TestimonialsSection" },
+          { "$ref": "#/$defs/TeamSection" },
+          { "$ref": "#/$defs/FaqSection" },
+          { "$ref": "#/$defs/CtaSection" },
+          { "$ref": "#/$defs/ContactSection" }
+        ]
+      }
+    },
+
+    "footer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tagline": { "$ref": "#/$defs/LocalizedText" },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "links"],
+            "additionalProperties": false,
+            "properties": {
+              "title": { "$ref": "#/$defs/LocalizedText" },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "href"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "label": { "$ref": "#/$defs/LocalizedText" },
+                    "href": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "socials": { "type": "array", "items": { "$ref": "#/$defs/Social" } },
+        "copyright": { "$ref": "#/$defs/LocalizedText" }
+      }
+    },
+
+    "contact": {
+      "type": "object",
+      "description": "Contact details surfaced in footer / contact section. The contact SECTION references these.",
+      "additionalProperties": false,
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "address": { "$ref": "#/$defs/LocalizedText" },
+        "mapEmbed": { "type": "string", "description": "Google Maps embed URL." },
+        "hours": { "$ref": "#/$defs/LocalizedText" }
+      }
+    },
+
+    "integrations": {
+      "type": "object",
+      "description": "Optional third-party wiring. Secrets are NOT stored here — only feature flags and non-secret ids. Real keys live in the deploy env.",
+      "additionalProperties": false,
+      "properties": {
+        "analytics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "provider": { "type": "string", "enum": ["none", "plausible", "umami", "ga4"] },
+            "siteId": { "type": "string" }
+          }
+        },
+        "email": {
+          "type": "object",
+          "description": "Transactional email for forms. Provider key injected at deploy time via env.",
+          "additionalProperties": false,
+          "properties": {
+            "provider": { "type": "string", "enum": ["none", "resend"] },
+            "fromEmail": { "type": "string", "format": "email" },
+            "notifyEmail": { "type": "string", "format": "email" }
+          }
+        }
+      }
+    }
+  },
+
+  "$defs": {
+    "LocalizedText": {
+      "title": "LocalizedText",
+      "description": "An object keyed by BCP-47 language code. MUST contain a value for meta.defaultLanguage. Example: {\"en\":\"Hello\",\"zh\":\"你好\"}",
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": { "^[a-z]{2}(-[A-Z]{2})?$": { "type": "string" } },
+      "additionalProperties": false
+    },
+
+    "Logo": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string", "enum": ["text", "image"], "description": "'text' renders the brand name in the heading font (no asset needed — preferred when the customer has no logo file)." },
+        "text": { "type": "string" },
+        "src": { "type": "string", "description": "Required when type=image. Path or upload token." },
+        "alt": { "type": "string" }
+      }
+    },
+
+    "Media": {
+      "title": "Media",
+      "description": "A resolvable image/video reference. Use 'placeholder' or 'unsplash' when the customer has not supplied a real asset — the pipeline resolves these later, so generation never blocks on missing files.",
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string", "enum": ["image", "video", "placeholder", "unsplash"] },
+        "src": { "type": "string", "description": "URL or upload token. Required for type image/video." },
+        "query": { "type": "string", "description": "Search/generation prompt. Required for type unsplash; optional hint for placeholder." },
+        "alt": { "$ref": "#/$defs/LocalizedText" },
+        "aspect": { "type": "string", "enum": ["square", "video", "portrait", "wide", "auto"], "default": "auto" },
+        "credit": { "type": "string", "description": "Attribution (e.g. 'Photo by X on Unsplash'); set automatically by resolve-media.mjs." }
+      }
+    },
+
+    "Cta": {
+      "title": "Cta",
+      "type": "object",
+      "required": ["label", "href"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "$ref": "#/$defs/LocalizedText" },
+        "href": { "type": "string" },
+        "style": { "type": "string", "enum": ["primary", "secondary", "ghost", "link"], "default": "primary" },
+        "icon": { "type": "string", "description": "Optional Lucide icon name." }
+      }
+    },
+
+    "Social": {
+      "type": "object",
+      "required": ["platform", "href"],
+      "additionalProperties": false,
+      "properties": {
+        "platform": { "type": "string", "enum": ["x", "linkedin", "facebook", "instagram", "youtube", "tiktok", "github", "wechat", "whatsapp", "telegram", "email"] },
+        "href": { "type": "string" }
+      }
+    },
+
+    "SectionBase": {
+      "description": "Fields shared by every section. Concrete sections add 'type' as a const and their own fields.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Anchor id, used by nav links." },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText", "description": "Small label above the heading." },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"], "default": "default" },
+        "visible": { "type": "boolean", "default": true }
+      }
+    },
+
+    "Icon": {
+      "type": "string",
+      "description": "A Lucide icon name in kebab-case (e.g. 'rocket', 'shield-check', 'bar-chart-3'). Icons are shipped with the template and recolored by theme — always reusable, never an uploaded asset."
+    },
+
+    "HeroSection": {
+      "type": "object",
+      "required": ["type", "heading"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "hero" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "variant": { "type": "string", "enum": ["split", "centered", "image-bg"], "default": "split" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "bullets": { "type": "array", "items": { "$ref": "#/$defs/LocalizedText" }, "maxItems": 4 },
+        "primaryCta": { "$ref": "#/$defs/Cta" },
+        "secondaryCta": { "$ref": "#/$defs/Cta" },
+        "media": { "$ref": "#/$defs/Media" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] }
+      }
+    },
+
+    "LogosSection": {
+      "type": "object",
+      "required": ["type", "logos"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "logos" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "logos": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string" },
+              "media": { "$ref": "#/$defs/Media" }
+            }
+          }
+        }
+      }
+    },
+
+    "FeaturesSection": {
+      "type": "object",
+      "required": ["type", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "features" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "variant": { "type": "string", "enum": ["grid", "list", "alternating"], "default": "grid" },
+        "columns": { "type": "integer", "enum": [2, 3, 4], "default": 3 },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["title", "body"],
+            "additionalProperties": false,
+            "properties": {
+              "icon": { "$ref": "#/$defs/Icon" },
+              "title": { "$ref": "#/$defs/LocalizedText" },
+              "body": { "$ref": "#/$defs/LocalizedText" },
+              "link": { "$ref": "#/$defs/Cta" }
+            }
+          }
+        }
+      }
+    },
+
+    "ServicesSection": {
+      "type": "object",
+      "required": ["type", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "services" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["title", "body"],
+            "additionalProperties": false,
+            "properties": {
+              "icon": { "$ref": "#/$defs/Icon" },
+              "title": { "$ref": "#/$defs/LocalizedText" },
+              "body": { "$ref": "#/$defs/LocalizedText" },
+              "price": { "$ref": "#/$defs/LocalizedText" },
+              "media": { "$ref": "#/$defs/Media" },
+              "cta": { "$ref": "#/$defs/Cta" }
+            }
+          }
+        }
+      }
+    },
+
+    "AboutSection": {
+      "type": "object",
+      "required": ["type", "body"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "about" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "variant": { "type": "string", "enum": ["text-media", "media-text", "centered"], "default": "text-media" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "body": { "$ref": "#/$defs/LocalizedText", "description": "Supports simple markdown (paragraphs, bold, lists)." },
+        "media": { "$ref": "#/$defs/Media" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] }
+      }
+    },
+
+    "StatsSection": {
+      "type": "object",
+      "required": ["type", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "stats" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": ["value", "label"],
+            "additionalProperties": false,
+            "properties": {
+              "value": { "type": "string", "description": "e.g. '500' or '99.9'." },
+              "suffix": { "type": "string", "description": "e.g. '+', '%', 'k'." },
+              "label": { "$ref": "#/$defs/LocalizedText" }
+            }
+          }
+        }
+      }
+    },
+
+    "GallerySection": {
+      "type": "object",
+      "required": ["type", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "gallery" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "variant": { "type": "string", "enum": ["grid", "masonry", "carousel"], "default": "grid" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["media"],
+            "additionalProperties": false,
+            "properties": {
+              "media": { "$ref": "#/$defs/Media" },
+              "caption": { "$ref": "#/$defs/LocalizedText" }
+            }
+          }
+        }
+      }
+    },
+
+    "PricingSection": {
+      "type": "object",
+      "required": ["type", "plans"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "pricing" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "plans": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": ["name", "price", "features", "cta"],
+            "additionalProperties": false,
+            "properties": {
+              "name": { "$ref": "#/$defs/LocalizedText" },
+              "price": { "$ref": "#/$defs/LocalizedText" },
+              "period": { "$ref": "#/$defs/LocalizedText" },
+              "description": { "$ref": "#/$defs/LocalizedText" },
+              "features": { "type": "array", "items": { "$ref": "#/$defs/LocalizedText" }, "minItems": 1 },
+              "cta": { "$ref": "#/$defs/Cta" },
+              "featured": { "type": "boolean", "default": false }
+            }
+          }
+        }
+      }
+    },
+
+    "TestimonialsSection": {
+      "type": "object",
+      "required": ["type", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "testimonials" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "variant": { "type": "string", "enum": ["grid", "carousel", "single"], "default": "grid" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["quote", "author"],
+            "additionalProperties": false,
+            "properties": {
+              "quote": { "$ref": "#/$defs/LocalizedText" },
+              "author": { "type": "string" },
+              "role": { "$ref": "#/$defs/LocalizedText" },
+              "avatar": { "$ref": "#/$defs/Media" },
+              "rating": { "type": "integer", "minimum": 1, "maximum": 5 }
+            }
+          }
+        }
+      }
+    },
+
+    "TeamSection": {
+      "type": "object",
+      "required": ["type", "members"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "team" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "members": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "role"],
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string" },
+              "role": { "$ref": "#/$defs/LocalizedText" },
+              "bio": { "$ref": "#/$defs/LocalizedText" },
+              "photo": { "$ref": "#/$defs/Media" },
+              "socials": { "type": "array", "items": { "$ref": "#/$defs/Social" } }
+            }
+          }
+        }
+      }
+    },
+
+    "FaqSection": {
+      "type": "object",
+      "required": ["type", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "faq" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["q", "a"],
+            "additionalProperties": false,
+            "properties": {
+              "q": { "$ref": "#/$defs/LocalizedText" },
+              "a": { "$ref": "#/$defs/LocalizedText" }
+            }
+          }
+        }
+      }
+    },
+
+    "CtaSection": {
+      "type": "object",
+      "required": ["type", "heading", "primaryCta"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "cta" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "primaryCta": { "$ref": "#/$defs/Cta" },
+        "secondaryCta": { "$ref": "#/$defs/Cta" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"], "default": "primary" }
+      }
+    },
+
+    "ContactSection": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "contact" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "showForm": { "type": "boolean", "default": true },
+        "formFields": {
+          "type": "array",
+          "description": "Field keys to include in the contact form. Renderer maps them to inputs.",
+          "items": { "type": "string", "enum": ["name", "email", "phone", "company", "message", "subject"] },
+          "default": ["name", "email", "message"]
+        },
+        "showDetails": { "type": "boolean", "default": true, "description": "Show email/phone/address from top-level contact{}." }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+---
+// Renders a schema `Cta` object as a styled link. Theme-driven colors + radius.
+import type { Cta } from '../../lib/site'
+import T from './T.astro'
+import Icon from './Icon.astro'
+
+interface Props {
+  cta?: Cta
+  size?: 'default' | 'lg'
+  class?: string
+}
+const { cta, size = 'default', class: className = '' } = Astro.props
+
+const base =
+  'inline-flex items-center justify-center gap-2 font-semibold transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
+const sizes: Record<string, string> = {
+  default: 'h-11 px-5 text-sm rounded-[var(--radius)]',
+  lg: 'h-12 px-6 text-base rounded-[var(--radius)]',
+}
+const styles: Record<string, string> = {
+  primary: 'bg-primary text-white hover:bg-primary-hover active:bg-primary-active shadow-sm',
+  secondary: 'bg-[var(--color-dark)] text-white hover:opacity-90',
+  ghost: 'border border-primary text-primary bg-transparent hover:bg-primary-light',
+  link: 'text-primary hover:text-primary-hover underline-offset-4 hover:underline',
+}
+const variant = cta?.style ?? 'primary'
+const cls =
+  variant === 'link'
+    ? `${base} ${styles.link} ${className}`
+    : `${base} ${sizes[size]} ${styles[variant]} ${className}`
+---
+
+{
+  cta && (
+    <a href={cta.href} class={cls}>
+      <T text={cta.label} />
+      {cta.icon && <Icon name={cta.icon} class="h-4 w-4" />}
+    </a>
+  )
+}

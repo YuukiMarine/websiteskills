@@ -1,0 +1,41 @@
+---
+import type { StatsSection } from '../../lib/site'
+import Section from '../Section.astro'
+import T from '../primitives/T.astro'
+
+interface Props {
+  data: StatsSection
+}
+const { data } = Astro.props
+const bg = data.background ?? 'dark'
+const dark = bg === 'dark' || bg === 'primary'
+const colClass: Record<number, string> = { 2: 'sm:grid-cols-2', 3: 'grid-cols-3', 4: 'grid-cols-2 lg:grid-cols-4' }
+const cols = colClass[data.items.length] ?? 'sm:grid-cols-3'
+const valueColor = dark ? 'text-white' : 'text-primary'
+const labelColor = dark ? 'text-white/70' : 'text-[var(--color-muted-ink)]'
+---
+
+<Section id={data.id} background={bg}>
+  {
+    data.heading && (
+      <T
+        as="h2"
+        class={`animate-on-scroll mx-auto mb-12 max-w-2xl text-center text-2xl font-bold tracking-tight md:text-3xl ${dark ? 'text-white' : 'text-[var(--color-ink)]'}`}
+        text={data.heading}
+      />
+    )
+  }
+  <dl class:list={['grid gap-8 text-center', cols]}>
+    {
+      data.items.map((s, i) => (
+        <div class="animate-on-scroll" data-delay={String((i % 3) + 1)}>
+          <dt class={`text-4xl font-extrabold tracking-tight md:text-5xl ${valueColor}`}>
+            {s.value}
+            {s.suffix && <span class="text-2xl md:text-3xl">{s.suffix}</span>}
+          </dt>
+          <T as="dd" class={`mt-2 text-sm font-medium uppercase tracking-wide ${labelColor}`} text={s.label} />
+        </div>
+      ))
+    }
+  </dl>
+</Section>

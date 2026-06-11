@@ -1,0 +1,32 @@
+---
+import '../styles/global.css'
+import { isAuthed } from '../lib/auth'
+
+if (isAuthed(Astro.cookies)) return Astro.redirect('/')
+const error = Astro.url.searchParams.get('error')
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign in · Sitesmith</title>
+  </head>
+  <body class="grid min-h-dvh place-items-center p-4">
+    <div class="panel w-full max-w-sm p-7">
+      <div class="mb-6 flex items-center gap-2">
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-primary font-bold text-white">S</span>
+        <span class="text-lg font-semibold">Sitesmith</span>
+      </div>
+      <h1 class="text-base font-semibold">Sign in</h1>
+      <p class="mt-1 mb-5 text-sm text-[var(--color-muted)]">Enter your console password.</p>
+      <form method="post" action="/api/auth" class="space-y-3">
+        <input type="hidden" name="action" value="login" />
+        <input class="field" type="password" name="password" placeholder="Password" autofocus required />
+        {error && <p class="text-sm text-[var(--color-danger)]">Incorrect password. Try again.</p>}
+        <button class="btn btn-primary w-full" type="submit">Sign in</button>
+      </form>
+    </div>
+  </body>
+</html>

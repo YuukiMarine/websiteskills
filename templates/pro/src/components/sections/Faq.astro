@@ -1,0 +1,33 @@
+---
+import type { FaqSection } from '../../lib/site'
+import Section from '../Section.astro'
+import SectionHeader from '../SectionHeader.astro'
+import T from '../primitives/T.astro'
+import Icon from '../primitives/Icon.astro'
+
+interface Props {
+  data: FaqSection
+}
+const { data } = Astro.props
+---
+
+<Section id={data.id} background={data.background ?? 'muted'}>
+  <SectionHeader eyebrow={data.eyebrow} heading={data.heading} subheading={data.subheading} />
+
+  <div class="mx-auto mt-12 max-w-3xl divide-y divide-[var(--color-border)] overflow-hidden rounded-[var(--radius)] border border-[var(--color-border)] bg-[var(--color-surface)]">
+    {
+      data.items.map((item) => (
+        <details class="group">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold text-[var(--color-ink)] [&::-webkit-details-marker]:hidden">
+            <T text={item.q} />
+            <Icon
+              name="chevron-down"
+              class="h-5 w-5 shrink-0 text-[var(--color-muted-ink)] transition-transform duration-200 group-open:rotate-180"
+            />
+          </summary>
+          <T as="div" class="px-5 pb-5 leading-relaxed text-[var(--color-muted-ink)]" text={item.a} />
+        </details>
+      ))
+    }
+  </div>
+</Section>

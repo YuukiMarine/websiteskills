@@ -1,0 +1,11 @@
+{
+  "name": "@sitesmith/skill",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sitesmith packaged as a Hermes Agent skill (validate/render/deploy a site.json).",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

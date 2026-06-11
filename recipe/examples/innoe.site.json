@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "siteName": "InnoE",
+    "domain": "innoe.io",
+    "description": {
+      "en": "Hands-on AI training for businesses in Singapore — AI avatars, short video, content marketing and SEO automation. Learn tools you can use the next day.",
+      "zh": "新加坡企业级 AI 实战培训——AI 数字人、短视频、内容营销与 SEO 自动化，学完即用。"
+    },
+    "keywords": ["AI training", "Singapore", "AI courses", "short video", "SEO automation"],
+    "languages": ["en", "zh"],
+    "defaultLanguage": "en",
+    "favicon": "auto"
+  },
+  "theme": {
+    "template": "pro",
+    "colorPreset": "indigo",
+    "neutral": "slate",
+    "font": { "heading": "Sora", "body": "Inter" },
+    "radius": "lg",
+    "density": "comfortable",
+    "mode": "light"
+  },
+  "brand": {
+    "name": "InnoE",
+    "logo": { "type": "text", "text": "InnoE" },
+    "tagline": { "en": "AI skills, made practical.", "zh": "把 AI 技能，变成生产力。" }
+  },
+  "nav": {
+    "links": [
+      { "label": { "en": "Why InnoE", "zh": "为什么选我们" }, "href": "#why" },
+      { "label": { "en": "Courses", "zh": "课程" }, "href": "#courses" },
+      { "label": { "en": "About", "zh": "关于" }, "href": "#about" },
+      { "label": { "en": "FAQ", "zh": "常见问题" }, "href": "#faq" }
+    ],
+    "cta": { "label": { "en": "Register", "zh": "立即报名" }, "href": "#contact", "style": "primary" },
+    "sticky": true,
+    "showLangToggle": true
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "id": "home",
+      "variant": "split",
+      "eyebrow": { "en": "AI skills for business", "zh": "面向企业的 AI 技能" },
+      "heading": {
+        "en": "Master the AI tools that grow your business",
+        "zh": "掌握助力业务增长的 AI 工具"
+      },
+      "subheading": {
+        "en": "Small-group, hands-on workshops in AI avatars, short video, content marketing and SEO automation. Walk in curious, walk out shipping.",
+        "zh": "小班实战工作坊，涵盖 AI 数字人、短视频、内容营销与 SEO 自动化。带着好奇来，带着作品走。"
+      },
+      "bullets": [
+        { "en": "Hands-on, project-based classes", "zh": "项目制实战教学" },
+        { "en": "Tools you can use the next day", "zh": "学完次日即可上手" },
+        { "en": "Taught by working practitioners", "zh": "一线从业者授课" }
+      ],
+      "primaryCta": { "label": { "en": "Browse courses", "zh": "查看课程" }, "href": "#courses", "style": "primary" },
+      "secondaryCta": { "label": { "en": "Talk to us", "zh": "联系我们" }, "href": "#contact", "style": "ghost" },
+      "media": { "type": "placeholder", "aspect": "video", "alt": { "en": "AI workshop in session", "zh": "AI 工作坊现场" } },
+      "background": "gradient"
+    },
+    {
+      "type": "features",
+      "id": "why",
+      "variant": "grid",
+      "columns": 3,
+      "eyebrow": { "en": "Why InnoE", "zh": "为什么选 InnoE" },
+      "heading": { "en": "Training built for real work", "zh": "为真实业务而设计的培训" },
+      "background": "muted",
+      "items": [
+        {
+          "icon": "target",
+          "title": { "en": "Outcome-first", "zh": "以成果为先" },
+          "body": { "en": "Every class ends with something you built and can reuse.", "zh": "每节课结束你都有可复用的作品产出。" }
+        },
+        {
+          "icon": "users",
+          "title": { "en": "Small groups", "zh": "小班授课" },
+          "body": { "en": "Capped class sizes so everyone gets hands-on help.", "zh": "限额开班，确保每位学员都获得实操指导。" }
+        },
+        {
+          "icon": "refresh-cw",
+          "title": { "en": "Always current", "zh": "持续更新" },
+          "body": { "en": "Curriculum refreshed as the tools evolve, every cohort.", "zh": "课程随工具迭代，每期更新。" }
+        }
+      ]
+    },
+    {
+      "type": "services",
+      "id": "courses",
+      "eyebrow": { "en": "Courses", "zh": "课程" },
+      "heading": { "en": "Pick your track", "zh": "选择你的方向" },
+      "subheading": { "en": "Four focused workshops. Take one, or stack them.", "zh": "四门聚焦工作坊，可单选，也可组合。" },
+      "background": "default",
+      "items": [
+        {
+          "icon": "user-round",
+          "title": { "en": "AI Avatars with CapCut", "zh": "AI 数字人（CapCut）" },
+          "body": { "en": "Produce talking-head videos at scale without a camera.", "zh": "无需摄像，批量产出口播视频。" },
+          "price": { "en": "from S$XXX", "zh": "S$XXX 起" },
+          "cta": { "label": { "en": "Details", "zh": "了解详情" }, "href": "#contact", "style": "link" }
+        },
+        {
+          "icon": "video",
+          "title": { "en": "Short Video & Image", "zh": "短视频与图像" },
+          "body": { "en": "AI-assisted shooting, editing and thumbnails that convert.", "zh": "AI 辅助拍摄、剪辑与高转化封面。" },
+          "price": { "en": "from S$XXX", "zh": "S$XXX 起" },
+          "cta": { "label": { "en": "Details", "zh": "了解详情" }, "href": "#contact", "style": "link" }
+        },
+        {
+          "icon": "pen-tool",
+          "title": { "en": "AI Content Marketing", "zh": "AI 内容营销" },
+          "body": { "en": "Plan, write and repurpose content with an AI workflow.", "zh": "用 AI 工作流策划、撰写并二次分发内容。" },
+          "price": { "en": "from S$XXX", "zh": "S$XXX 起" },
+          "cta": { "label": { "en": "Details", "zh": "了解详情" }, "href": "#contact", "style": "link" }
+        },
+        {
+          "icon": "search",
+          "title": { "en": "SEO Automation", "zh": "SEO 自动化" },
+          "body": { "en": "Automate research, briefs and on-page SEO with agents.", "zh": "用智能体自动化关键词研究、内容大纲与页面 SEO。" },
+          "price": { "en": "from S$XXX", "zh": "S$XXX 起" },
+          "cta": { "label": { "en": "Details", "zh": "了解详情" }, "href": "#contact", "style": "link" }
+        }
+      ]
+    },
+    {
+      "type": "stats",
+      "id": "impact",
+      "heading": { "en": "Trusted by learners across Singapore", "zh": "深受新加坡学员信赖" },
+      "background": "dark",
+      "items": [
+        { "value": "20", "suffix": "+", "label": { "en": "Workshops", "zh": "工作坊" } },
+        { "value": "4.8", "suffix": "/5", "label": { "en": "Average rating", "zh": "平均评分" } },
+        { "value": "100", "suffix": "%", "label": { "en": "Hands-on", "zh": "纯实战" } }
+      ]
+    },
+    {
+      "type": "about",
+      "id": "about",
+      "variant": "media-text",
+      "eyebrow": { "en": "About", "zh": "关于我们" },
+      "heading": { "en": "Practitioners, not lecturers", "zh": "我们是从业者，不是讲师" },
+      "body": {
+        "en": "InnoE was started by people who use these tools every day to ship real work. Our classes are small, practical and judgement-free — designed so a complete beginner leaves with momentum and a working result.",
+        "zh": "InnoE 由每天使用这些工具交付真实项目的从业者创办。我们的课堂小而务实、零门槛——让零基础学员也能带着成果与动力离开。"
+      },
+      "media": { "type": "placeholder", "aspect": "portrait", "alt": { "en": "Instructor helping a student", "zh": "讲师在指导学员" } },
+      "background": "muted"
+    },
+    {
+      "type": "testimonials",
+      "id": "reviews",
+      "variant": "grid",
+      "heading": { "en": "What learners say", "zh": "学员怎么说" },
+      "background": "default",
+      "items": [
+        {
+          "quote": { "en": "I made my first AI avatar video the same evening. Genuinely useful.", "zh": "当晚我就做出了第一条 AI 数字人视频，非常实用。" },
+          "author": "S. Lim",
+          "role": { "en": "Marketing lead", "zh": "市场负责人" },
+          "rating": 5
+        },
+        {
+          "quote": { "en": "Small class, lots of personal help. Worth every minute.", "zh": "小班教学，老师一对一帮助很多，值回票价。" },
+          "author": "J. Tan",
+          "role": { "en": "SME owner", "zh": "中小企业主" },
+          "rating": 5
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "id": "faq",
+      "heading": { "en": "Questions, answered", "zh": "常见问题" },
+      "background": "muted",
+      "items": [
+        {
+          "q": { "en": "Do I need any prior experience?", "zh": "需要基础吗？" },
+          "a": { "en": "No. Classes are beginner-friendly and start from the fundamentals.", "zh": "不需要。课程对新手友好，从基础讲起。" }
+        },
+        {
+          "q": { "en": "What should I bring?", "zh": "需要带什么？" },
+          "a": { "en": "Just a laptop, fully charged. We provide the rest.", "zh": "带上充满电的笔记本电脑即可，其余我们提供。" }
+        },
+        {
+          "q": { "en": "Are classes in English or Mandarin?", "zh": "授课语言是英文还是中文？" },
+          "a": { "en": "Both — most cohorts are bilingual; ask us for the next schedule.", "zh": "双语授课，多数班次中英文兼顾，欢迎咨询近期排期。" }
+        },
+        {
+          "q": { "en": "Can you train my whole team?", "zh": "可以为团队定制内训吗？" },
+          "a": { "en": "Yes, we run private corporate sessions. Get in touch.", "zh": "可以，我们提供企业内训，欢迎联系。" }
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "get-started",
+      "heading": { "en": "Ready to build with AI?", "zh": "准备好用 AI 开始创作了吗？" },
+      "subheading": { "en": "Find a cohort that fits and register in minutes.", "zh": "选择合适的班次，几分钟完成报名。" },
+      "primaryCta": { "label": { "en": "Register now", "zh": "立即报名" }, "href": "#contact", "style": "primary" },
+      "secondaryCta": { "label": { "en": "Ask a question", "zh": "咨询客服" }, "href": "#contact", "style": "secondary" },
+      "background": "primary"
+    },
+    {
+      "type": "contact",
+      "id": "contact",
+      "eyebrow": { "en": "Contact", "zh": "联系我们" },
+      "heading": { "en": "Let's talk", "zh": "与我们联系" },
+      "subheading": { "en": "Tell us what you want to learn — we'll point you to the right cohort.", "zh": "告诉我们你想学什么，我们为你推荐合适的班次。" },
+      "background": "default",
+      "showForm": true,
+      "formFields": ["name", "email", "message"],
+      "showDetails": true
+    }
+  ],
+  "footer": {
+    "tagline": { "en": "Practical AI training in Singapore.", "zh": "新加坡实战 AI 培训。" },
+    "columns": [
+      {
+        "title": { "en": "Courses", "zh": "课程" },
+        "links": [
+          { "label": { "en": "AI Avatars", "zh": "AI 数字人" }, "href": "#courses" },
+          { "label": { "en": "Short Video", "zh": "短视频" }, "href": "#courses" },
+          { "label": { "en": "Content Marketing", "zh": "内容营销" }, "href": "#courses" },
+          { "label": { "en": "SEO Automation", "zh": "SEO 自动化" }, "href": "#courses" }
+        ]
+      },
+      {
+        "title": { "en": "Company", "zh": "公司" },
+        "links": [
+          { "label": { "en": "About", "zh": "关于" }, "href": "#about" },
+          { "label": { "en": "FAQ", "zh": "常见问题" }, "href": "#faq" },
+          { "label": { "en": "Contact", "zh": "联系" }, "href": "#contact" }
+        ]
+      }
+    ],
+    "socials": [
+      { "platform": "linkedin", "href": "https://linkedin.com" },
+      { "platform": "instagram", "href": "https://instagram.com" },
+      { "platform": "email", "href": "mailto:hello@innoe.io" }
+    ],
+    "copyright": { "en": "© InnoE. All rights reserved.", "zh": "© InnoE 版权所有。" }
+  },
+  "contact": {
+    "email": "hello@innoe.io",
+    "phone": "+65 0000 0000",
+    "address": { "en": "Singapore", "zh": "新加坡" },
+    "hours": { "en": "Mon–Fri, 9am–6pm", "zh": "周一至周五 9:00–18:00" }
+  },
+  "integrations": {
+    "analytics": { "provider": "plausible", "siteId": "innoe.io" },
+    "email": { "provider": "resend", "fromEmail": "hello@innoe.io", "notifyEmail": "hello@innoe.io" }
+  }
+}

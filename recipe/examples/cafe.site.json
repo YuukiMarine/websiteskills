@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "siteName": "Bloom Coffee",
+    "description": {
+      "en": "Bloom Coffee — a cozy neighbourhood specialty coffee shop. Hand-brewed coffee, locally roasted beans and fresh-baked pastries, served with care.",
+      "zh": "Bloom Coffee——温馨的社区精品咖啡馆。手冲咖啡、本地烘焙豆与新鲜出炉的糕点，用心为你呈现。"
+    },
+    "keywords": ["coffee", "cafe", "specialty coffee", "pastries", "Singapore"],
+    "languages": ["en", "zh"],
+    "defaultLanguage": "en",
+    "favicon": "auto"
+  },
+  "theme": {
+    "template": "pro",
+    "primary": "#c2410c",
+    "accent": "#ca8a04",
+    "neutral": "stone",
+    "font": { "heading": "Manrope", "body": "Inter" },
+    "radius": "lg",
+    "density": "comfortable",
+    "mode": "light"
+  },
+  "brand": {
+    "name": "Bloom Coffee",
+    "logo": { "type": "text", "text": "☕ Bloom" },
+    "tagline": { "en": "Your daily ritual, perfected.", "zh": "把每日小确幸，做到极致。" }
+  },
+  "nav": {
+    "links": [
+      { "label": { "en": "Why Bloom", "zh": "关于我们" }, "href": "#why" },
+      { "label": { "en": "Gallery", "zh": "图集" }, "href": "#gallery" },
+      { "label": { "en": "Team", "zh": "团队" }, "href": "#team" },
+      { "label": { "en": "Visit", "zh": "到店" }, "href": "#contact" }
+    ],
+    "cta": { "label": { "en": "Find us", "zh": "找到我们" }, "href": "#contact", "style": "primary" },
+    "sticky": true,
+    "showLangToggle": true
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "id": "home",
+      "variant": "split",
+      "eyebrow": { "en": "Specialty coffee", "zh": "精品咖啡" },
+      "heading": { "en": "Your daily ritual, perfected.", "zh": "把每日小确幸，做到极致。" },
+      "subheading": {
+        "en": "Hand-brewed coffee, locally roasted beans and fresh-baked pastries — in a warm little corner made for slowing down.",
+        "zh": "手冲咖啡、本地烘焙豆、新鲜出炉的糕点——在温暖的小角落里，慢下来。"
+      },
+      "bullets": [
+        { "en": "Locally roasted, every week", "zh": "每周本地新鲜烘焙" },
+        { "en": "Fresh pastries daily", "zh": "每日现烤糕点" },
+        { "en": "Cozy, laptop-friendly space", "zh": "舒适、适合办公的空间" }
+      ],
+      "primaryCta": { "label": { "en": "Visit us", "zh": "到店打卡" }, "href": "#contact", "style": "primary" },
+      "secondaryCta": { "label": { "en": "See the space", "zh": "看看环境" }, "href": "#gallery", "style": "ghost" },
+      "media": { "type": "unsplash", "query": "cozy specialty coffee shop interior warm light", "aspect": "square", "alt": { "en": "Inside Bloom Coffee", "zh": "Bloom Coffee 店内" } },
+      "background": "gradient"
+    },
+    {
+      "type": "features",
+      "id": "why",
+      "variant": "grid",
+      "columns": 4,
+      "eyebrow": { "en": "Why Bloom", "zh": "为什么选 Bloom" },
+      "heading": { "en": "Small batch, big care", "zh": "小批量，大用心" },
+      "background": "muted",
+      "items": [
+        {
+          "icon": "coffee",
+          "title": { "en": "Hand-brewed", "zh": "手冲精萃" },
+          "body": { "en": "Pour-overs and espresso dialed in by hand, cup by cup.", "zh": "手冲与意式，逐杯精心调校。" }
+        },
+        {
+          "icon": "leaf",
+          "title": { "en": "Locally roasted", "zh": "本地烘焙" },
+          "body": { "en": "Beans roasted nearby each week for peak freshness.", "zh": "每周就近烘焙，保证最佳新鲜度。" }
+        },
+        {
+          "icon": "cookie",
+          "title": { "en": "Fresh pastries", "zh": "新鲜糕点" },
+          "body": { "en": "Croissants, cakes and bakes made fresh every morning.", "zh": "可颂、蛋糕与烘焙，每日清晨现做。" }
+        },
+        {
+          "icon": "armchair",
+          "title": { "en": "A place to stay", "zh": "可久坐的空间" },
+          "body": { "en": "Comfy seats, fast Wi-Fi and power at every table.", "zh": "舒适座椅、快速 Wi-Fi，每桌都有插座。" }
+        }
+      ]
+    },
+    {
+      "type": "gallery",
+      "id": "gallery",
+      "variant": "grid",
+      "eyebrow": { "en": "Gallery", "zh": "图集" },
+      "heading": { "en": "A look around", "zh": "店内一瞥" },
+      "subheading": { "en": "Good coffee, good light, good company.", "zh": "好咖啡、好光线、好时光。" },
+      "background": "default",
+      "items": [
+        { "media": { "type": "unsplash", "query": "latte art coffee cup top view", "aspect": "square" }, "caption": { "en": "Latte art", "zh": "拉花" } },
+        { "media": { "type": "unsplash", "query": "fresh croissants pastry display", "aspect": "square" }, "caption": { "en": "Fresh bakes", "zh": "现烤糕点" } },
+        { "media": { "type": "unsplash", "query": "barista pulling espresso shot", "aspect": "square" }, "caption": { "en": "Pulling a shot", "zh": "萃取浓缩" } },
+        { "media": { "type": "unsplash", "query": "cozy cafe seating window light", "aspect": "square" }, "caption": { "en": "Window seats", "zh": "窗边座位" } },
+        { "media": { "type": "unsplash", "query": "coffee beans roasting close up", "aspect": "square" }, "caption": { "en": "Our beans", "zh": "我们的豆子" } },
+        { "media": { "type": "unsplash", "query": "iced coffee drinks on table", "aspect": "square" }, "caption": { "en": "Cold brews", "zh": "冷萃" } }
+      ]
+    },
+    {
+      "type": "about",
+      "id": "about",
+      "variant": "media-text",
+      "eyebrow": { "en": "Our story", "zh": "我们的故事" },
+      "heading": { "en": "Brewed by your neighbours", "zh": "邻里之间，一杯好咖啡" },
+      "body": {
+        "en": "Bloom started with one simple idea: a neighbourhood deserves a place where the coffee is excellent, the welcome is warm and nobody rushes you out. We roast in small batches, bake every morning, and learn our regulars' orders by heart.",
+        "zh": "Bloom 始于一个简单的想法：每个社区都值得拥有一家咖啡出众、待客温暖、不催你离开的小店。我们小批量烘焙、每日清晨现烤，并把熟客的喜好牢记在心。"
+      },
+      "media": { "type": "unsplash", "query": "barista smiling behind cafe counter", "aspect": "portrait", "alt": { "en": "A Bloom barista", "zh": "Bloom 咖啡师" } },
+      "background": "muted"
+    },
+    {
+      "type": "team",
+      "id": "team",
+      "eyebrow": { "en": "The team", "zh": "团队" },
+      "heading": { "en": "The people behind the bar", "zh": "吧台后的我们" },
+      "background": "default",
+      "members": [
+        {
+          "name": "Mia Tan",
+          "role": { "en": "Head Barista", "zh": "首席咖啡师" },
+          "bio": { "en": "Latte-art champion and pour-over perfectionist.", "zh": "拉花冠军，手冲完美主义者。" },
+          "photo": { "type": "unsplash", "query": "barista portrait apron smiling", "aspect": "square" },
+          "socials": [{ "platform": "instagram", "href": "https://instagram.com" }]
+        },
+        {
+          "name": "Daniel Lee",
+          "role": { "en": "Roaster", "zh": "烘焙师" },
+          "bio": { "en": "Chases the perfect roast, one batch at a time.", "zh": "一炉一炉，追逐完美烘焙曲线。" },
+          "photo": { "type": "unsplash", "query": "coffee roaster man portrait", "aspect": "square" },
+          "socials": [{ "platform": "instagram", "href": "https://instagram.com" }]
+        },
+        {
+          "name": "Aisha Rahman",
+          "role": { "en": "Pastry Chef", "zh": "糕点主厨" },
+          "bio": { "en": "Up at dawn so your croissant is warm.", "zh": "清晨即起，只为你的可颂温热。" },
+          "photo": { "type": "unsplash", "query": "pastry chef woman portrait bakery", "aspect": "square" },
+          "socials": [{ "platform": "instagram", "href": "https://instagram.com" }]
+        }
+      ]
+    },
+    {
+      "type": "testimonials",
+      "id": "reviews",
+      "variant": "grid",
+      "heading": { "en": "Loved by the neighbourhood", "zh": "深受街坊喜爱" },
+      "background": "muted",
+      "items": [
+        {
+          "quote": { "en": "The best flat white in the area, hands down. And they remember my name.", "zh": "附近最好喝的小白咖啡，没有之一。而且他们记得我的名字。" },
+          "author": "Rachel O.",
+          "role": { "en": "Regular", "zh": "熟客" },
+          "rating": 5
+        },
+        {
+          "quote": { "en": "My go-to spot to work. Great coffee, comfy seats, fast Wi-Fi.", "zh": "我最爱的办公据点。咖啡好、座位舒服、网速快。" },
+          "author": "Marcus T.",
+          "role": { "en": "Freelancer", "zh": "自由职业者" },
+          "rating": 5
+        },
+        {
+          "quote": { "en": "Those morning croissants are dangerous. Worth every visit.", "zh": "他们的早晨可颂太危险了，每次去都值得。" },
+          "author": "Priya S.",
+          "role": { "en": "Neighbour", "zh": "街坊" },
+          "rating": 5
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "id": "contact",
+      "eyebrow": { "en": "Visit", "zh": "到店" },
+      "heading": { "en": "Come say hello", "zh": "来坐坐吧" },
+      "subheading": { "en": "Drop by, or send us a note for events and catering.", "zh": "欢迎到店，或留言咨询活动与外送。" },
+      "background": "default",
+      "showForm": true,
+      "formFields": ["name", "email", "message"],
+      "showDetails": true
+    },
+    {
+      "type": "cta",
+      "id": "get-started",
+      "heading": { "en": "Your table is waiting.", "zh": "你的座位，已备好。" },
+      "subheading": { "en": "Open daily from 8am. First coffee's the hardest to resist.", "zh": "每日早 8 点营业。第一杯，最难抗拒。" },
+      "primaryCta": { "label": { "en": "Get directions", "zh": "查看路线" }, "href": "#contact", "style": "primary" },
+      "secondaryCta": { "label": { "en": "See the gallery", "zh": "浏览图集" }, "href": "#gallery", "style": "secondary" },
+      "background": "primary"
+    }
+  ],
+  "footer": {
+    "tagline": { "en": "Your daily ritual, perfected.", "zh": "把每日小确幸，做到极致。" },
+    "columns": [
+      {
+        "title": { "en": "Visit", "zh": "到店" },
+        "links": [
+          { "label": { "en": "Gallery", "zh": "图集" }, "href": "#gallery" },
+          { "label": { "en": "Our team", "zh": "团队" }, "href": "#team" },
+          { "label": { "en": "Find us", "zh": "联系" }, "href": "#contact" }
+        ]
+      },
+      {
+        "title": { "en": "Hours", "zh": "营业时间" },
+        "links": [
+          { "label": { "en": "Mon–Fri 8am–7pm", "zh": "周一至周五 8:00–19:00" }, "href": "#contact" },
+          { "label": { "en": "Sat–Sun 9am–6pm", "zh": "周六日 9:00–18:00" }, "href": "#contact" }
+        ]
+      }
+    ],
+    "socials": [
+      { "platform": "instagram", "href": "https://instagram.com" },
+      { "platform": "facebook", "href": "https://facebook.com" }
+    ],
+    "copyright": { "en": "An illustrative demo cafe — not a real business.", "zh": "示例演示咖啡馆，并非真实商家。" }
+  },
+  "contact": {
+    "email": "hello@bloom.coffee",
+    "phone": "+65 0000 0000",
+    "address": { "en": "12 Maple Street, Singapore", "zh": "新加坡枫叶街 12 号" },
+    "hours": { "en": "Mon–Fri 8am–7pm · Sat–Sun 9am–6pm", "zh": "周一至周五 8:00–19:00 · 周六日 9:00–18:00" }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "sitesmith",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Conversational website builder + auto-deploy. BYO-infra SaaS.",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "generate": "node scripts/generate.mjs",
+    "build-skill": "node scripts/build-skill.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

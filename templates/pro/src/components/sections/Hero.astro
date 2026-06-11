@@ -1,0 +1,126 @@
+---
+import type { HeroSection } from '../../lib/site'
+import T from '../primitives/T.astro'
+import Cta from '../primitives/Cta.astro'
+import Media from '../primitives/Media.astro'
+import Icon from '../primitives/Icon.astro'
+
+interface Props {
+  data: HeroSection
+}
+const { data } = Astro.props
+const variant = data.variant ?? 'split'
+const bg = `bg-${data.background ?? 'gradient'}`
+const imageBg = variant === 'image-bg'
+const centered = variant === 'centered'
+const inkClass = imageBg ? 'text-white' : 'text-[var(--color-ink)]'
+const subClass = imageBg ? 'text-white/85' : 'text-[var(--color-muted-ink)]'
+---
+
+<section
+  id={data.id}
+  class:list={['ss-hero relative overflow-hidden', !imageBg && bg, imageBg && 'bg-dark']}
+>
+  {
+    imageBg && (
+      <div class="absolute inset-0">
+        <Media media={data.media} class="h-full w-full" />
+        <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-black/55 to-black/40" />
+      </div>
+    )
+  }
+
+  <div class="relative mx-auto max-w-7xl px-4 py-20 md:px-6 lg:px-8 lg:py-28">
+    <div
+      class:list={[
+        centered || imageBg
+          ? 'mx-auto max-w-3xl text-center'
+          : 'grid items-center gap-12 lg:grid-cols-2',
+      ]}
+    >
+      <div class:list={['animate-on-scroll', !centered && !imageBg && 'text-center lg:text-left']}>
+        {
+          data.eyebrow && (
+            <p
+              class:list={[
+                'ss-eyebrow mb-4 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold',
+                imageBg
+                  ? 'border-white/30 bg-white/10 text-white backdrop-blur'
+                  : 'border-primary/20 bg-primary-light text-primary',
+              ]}
+            >
+              <Icon name="sparkles" class="h-3.5 w-3.5" />
+              <T text={data.eyebrow} />
+            </p>
+          )
+        }
+
+        <T
+          as="h1"
+          class={`text-4xl font-extrabold tracking-tight md:text-5xl lg:text-[3.4rem] lg:leading-[1.05] ${inkClass}`}
+          text={data.heading}
+        />
+
+        {
+          data.subheading && (
+            <T
+              as="p"
+              class={`mt-5 text-lg leading-relaxed ${subClass} ${centered || imageBg ? 'mx-auto max-w-2xl' : 'max-w-xl'}`}
+              text={data.subheading}
+            />
+          )
+        }
+
+        {
+          data.bullets?.length ? (
+            <ul
+              class:list={[
+                'mt-6 flex flex-wrap gap-2',
+                centered || imageBg ? 'justify-center' : 'justify-center lg:justify-start',
+              ]}
+            >
+              {data.bullets.map((b) => (
+                <li
+                  class:list={[
+                    'inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold shadow-sm',
+                    imageBg
+                      ? 'bg-white/15 text-white backdrop-blur'
+                      : 'border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted-ink)]',
+                  ]}
+                >
+                  <Icon name="check" class="h-3.5 w-3.5 text-primary" />
+                  <T text={b} />
+                </li>
+              ))}
+            </ul>
+          ) : null
+        }
+
+        {
+          (data.primaryCta || data.secondaryCta) && (
+            <div
+              class:list={[
+                'mt-8 flex flex-col gap-3 sm:flex-row',
+                centered || imageBg ? 'justify-center' : 'justify-center lg:justify-start',
+              ]}
+            >
+              <Cta cta={data.primaryCta} size="lg" />
+              <Cta cta={data.secondaryCta} size="lg" />
+            </div>
+          )
+        }
+      </div>
+
+      {
+        !centered && !imageBg && (
+          <div class="animate-on-scroll" data-delay="1">
+            <Media
+              media={data.media}
+              class="aspect-[4/3] w-full rounded-3xl shadow-lg ring-1 ring-[var(--color-border)]"
+            />
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

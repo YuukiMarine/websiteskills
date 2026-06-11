@@ -1,0 +1,47 @@
+---
+import type { CtaSection } from '../../lib/site'
+import Section from '../Section.astro'
+import T from '../primitives/T.astro'
+
+interface Props {
+  data: CtaSection
+}
+const { data } = Astro.props
+const bg = data.background ?? 'primary'
+const onColor = bg === 'primary' || bg === 'dark'
+// On a colored band, buttons invert for contrast.
+const primaryBtn = onColor
+  ? 'bg-white text-primary hover:bg-white/90'
+  : 'bg-primary text-white hover:bg-primary-hover'
+const secondaryBtn = onColor
+  ? 'border border-white/40 text-white hover:bg-white/10'
+  : 'border border-primary text-primary hover:bg-primary-light'
+const btnBase =
+  'inline-flex h-12 items-center justify-center gap-2 rounded-[var(--radius)] px-6 text-base font-semibold transition-colors'
+const headColor = onColor ? 'text-white' : 'text-[var(--color-ink)]'
+const subColor = onColor ? 'text-white/85' : 'text-[var(--color-muted-ink)]'
+---
+
+<Section id={data.id} background={bg}>
+  <div class="animate-on-scroll mx-auto max-w-2xl text-center">
+    <T as="h2" class={`text-3xl font-bold tracking-tight md:text-4xl ${headColor}`} text={data.heading} />
+    {data.subheading && <T as="p" class={`mt-4 text-lg leading-relaxed ${subColor}`} text={data.subheading} />}
+
+    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+      {
+        data.primaryCta && (
+          <a href={data.primaryCta.href} class={`${btnBase} ${primaryBtn}`}>
+            <T text={data.primaryCta.label} />
+          </a>
+        )
+      }
+      {
+        data.secondaryCta && (
+          <a href={data.secondaryCta.href} class={`${btnBase} ${secondaryBtn}`}>
+            <T text={data.secondaryCta.label} />
+          </a>
+        )
+      }
+    </div>
+  </div>
+</Section>

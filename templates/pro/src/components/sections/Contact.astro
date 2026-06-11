@@ -1,0 +1,115 @@
+---
+import type { ContactSection } from '../../lib/site'
+import { site } from '../../lib/site'
+import Section from '../Section.astro'
+import SectionHeader from '../SectionHeader.astro'
+import T from '../primitives/T.astro'
+import Icon from '../primitives/Icon.astro'
+
+interface Props {
+  data: ContactSection
+}
+const { data } = Astro.props
+const info = site.contact ?? {}
+const showForm = data.showForm !== false
+const showDetails = data.showDetails !== false && !!(info.email || info.phone || info.address || info.hours)
+const fields = data.formFields ?? ['name', 'email', 'message']
+
+const fieldLabels: Record<string, { en: string; zh: string }> = {
+  name: { en: 'Name', zh: '姓名' },
+  email: { en: 'Email', zh: '邮箱' },
+  phone: { en: 'Phone', zh: '电话' },
+  company: { en: 'Company', zh: '公司' },
+  subject: { en: 'Subject', zh: '主题' },
+  message: { en: 'Message', zh: '留言' },
+}
+const submitLabel = { en: 'Send message', zh: '发送' }
+const twoCol = showForm && showDetails
+---
+
+<Section id={data.id} background={data.background ?? 'default'}>
+  <SectionHeader eyebrow={data.eyebrow} heading={data.heading} subheading={data.subheading} />
+
+  <div class:list={['mt-12 grid gap-10', twoCol && 'lg:grid-cols-2']}>
+    {
+      showForm && (
+        <form
+          class="animate-on-scroll space-y-4 rounded-[var(--radius)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card"
+          method="post"
+          action="#"
+          data-contact-form
+        >
+          {fields.map((f) => (
+            <div>
+              <label for={`f-${f}`} class="mb-1.5 block text-sm font-medium text-[var(--color-ink)]">
+                <T text={fieldLabels[f] ?? { en: f, zh: f }} />
+              </label>
+              {f === 'message' ? (
+                <textarea
+                  id={`f-${f}`}
+                  name={f}
+                  rows="4"
+                  required
+                  class="w-full rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-[var(--color-ink)] outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+              ) : (
+                <input
+                  id={`f-${f}`}
+                  name={f}
+                  type={f === 'email' ? 'email' : f === 'phone' ? 'tel' : 'text'}
+                  required={f === 'name' || f === 'email'}
+                  class="w-full rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-[var(--color-ink)] outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+              )}
+            </div>
+          ))}
+          <button
+            type="submit"
+            class="inline-flex h-11 w-full items-center justify-center rounded-[var(--radius)] bg-primary px-5 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+          >
+            <T text={submitLabel} />
+          </button>
+        </form>
+      )
+    }
+
+    {
+      showDetails && (
+        <div class="animate-on-scroll space-y-5" data-delay="1">
+          {info.email && (
+            <a href={`mailto:${info.email}`} class="flex items-start gap-3 text-[var(--color-ink)] hover:text-primary">
+              <Icon name="mail" class="mt-0.5 h-5 w-5 text-primary" />
+              <span>{info.email}</span>
+            </a>
+          )}
+          {info.phone && (
+            <a href={`tel:${info.phone}`} class="flex items-start gap-3 text-[var(--color-ink)] hover:text-primary">
+              <Icon name="phone" class="mt-0.5 h-5 w-5 text-primary" />
+              <span>{info.phone}</span>
+            </a>
+          )}
+          {info.address && (
+            <div class="flex items-start gap-3 text-[var(--color-ink)]">
+              <Icon name="map-pin" class="mt-0.5 h-5 w-5 text-primary" />
+              <T text={info.address} />
+            </div>
+          )}
+          {info.hours && (
+            <div class="flex items-start gap-3 text-[var(--color-ink)]">
+              <Icon name="clock" class="mt-0.5 h-5 w-5 text-primary" />
+              <T text={info.hours} />
+            </div>
+          )}
+          {info.mapEmbed && (
+            <iframe
+              src={info.mapEmbed}
+              title="Map"
+              loading="lazy"
+              class="mt-2 h-56 w-full rounded-[var(--radius)] border border-[var(--color-border)]"
+            />
+          )}
+        </div>
+      )
+    }
+  </div>
+</Section>

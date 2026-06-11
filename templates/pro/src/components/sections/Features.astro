@@ -1,0 +1,48 @@
+---
+import type { FeaturesSection } from '../../lib/site'
+import Section from '../Section.astro'
+import SectionHeader from '../SectionHeader.astro'
+import T from '../primitives/T.astro'
+import Cta from '../primitives/Cta.astro'
+import Icon from '../primitives/Icon.astro'
+
+interface Props {
+  data: FeaturesSection
+}
+const { data } = Astro.props
+// Static, literal class strings so Tailwind's scanner picks them up.
+const colClass: Record<number, string> = {
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-2 lg:grid-cols-3',
+  4: 'sm:grid-cols-2 lg:grid-cols-4',
+}
+const cols = colClass[data.columns ?? 3] ?? colClass[3]
+---
+
+<Section id={data.id} background={data.background ?? 'muted'}>
+  <SectionHeader eyebrow={data.eyebrow} heading={data.heading} subheading={data.subheading} />
+
+  <div class:list={['mt-14 grid gap-6', cols]}>
+    {
+      data.items.map((item, i) => (
+        <div
+          class="ss-card animate-on-scroll flex flex-col rounded-[var(--radius)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card transition-shadow duration-200 hover:shadow-card-hover"
+          data-delay={String((i % 3) + 1)}
+        >
+          {item.icon && (
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] bg-primary-light text-primary">
+              <Icon name={item.icon} class="h-6 w-6" />
+            </span>
+          )}
+          <T as="h3" class="mt-4 text-lg font-semibold text-[var(--color-ink)]" text={item.title} />
+          <T as="p" class="mt-2 flex-1 text-[15px] leading-relaxed text-[var(--color-muted-ink)]" text={item.body} />
+          {item.link && (
+            <div class="mt-4">
+              <Cta cta={{ ...item.link, style: 'link' }} />
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</Section>

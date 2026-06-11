@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "siteName": "Apple Watch",
+    "description": {
+      "en": "Apple Watch — your essential companion for a healthy life. Track your heart, fitness and sleep, stay connected, and stay safe, right from your wrist.",
+      "zh": "Apple Watch——健康生活的得力伙伴。在腕上追踪心率、健身与睡眠，保持连接，守护安全。"
+    },
+    "keywords": ["Apple Watch", "smartwatch", "health", "fitness", "ECG", "wearable"],
+    "languages": ["en", "zh"],
+    "defaultLanguage": "en",
+    "favicon": "auto"
+  },
+  "theme": {
+    "template": "pro",
+    "primary": "#1d1d1f",
+    "accent": "#0071e3",
+    "neutral": "zinc",
+    "font": { "heading": "Sora", "body": "Inter" },
+    "radius": "lg",
+    "density": "spacious",
+    "mode": "light"
+  },
+  "brand": {
+    "name": "Apple Watch",
+    "logo": { "type": "text", "text": "⌚ Apple Watch" },
+    "tagline": { "en": "Your health. On your wrist.", "zh": "健康，戴在腕上。" }
+  },
+  "nav": {
+    "links": [
+      { "label": { "en": "Features", "zh": "功能" }, "href": "#features" },
+      { "label": { "en": "Design", "zh": "设计" }, "href": "#design" },
+      { "label": { "en": "Models", "zh": "型号" }, "href": "#models" },
+      { "label": { "en": "FAQ", "zh": "常见问题" }, "href": "#faq" }
+    ],
+    "cta": { "label": { "en": "Buy", "zh": "购买" }, "href": "#models", "style": "primary" },
+    "sticky": true,
+    "showLangToggle": true
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "id": "home",
+      "variant": "split",
+      "eyebrow": { "en": "Apple Watch", "zh": "Apple Watch" },
+      "heading": { "en": "Your health, on your wrist.", "zh": "健康，就戴在腕上。" },
+      "subheading": {
+        "en": "The most personal device Apple makes — measuring your heart, oxygen and sleep, coaching your workouts, and keeping you connected and safe through the day.",
+        "zh": "Apple 最贴身的设备——测量心率、血氧与睡眠，指导每一次锻炼，全天保持连接与安全守护。"
+      },
+      "bullets": [
+        { "en": "Advanced health sensors", "zh": "先进健康传感器" },
+        { "en": "All-day battery", "zh": "全天候续航" },
+        { "en": "Works seamlessly with iPhone", "zh": "与 iPhone 无缝协作" }
+      ],
+      "primaryCta": { "label": { "en": "Explore models", "zh": "查看型号" }, "href": "#models", "style": "primary" },
+      "secondaryCta": { "label": { "en": "See features", "zh": "了解功能" }, "href": "#features", "style": "ghost" },
+      "media": { "type": "unsplash", "query": "Apple Watch on wrist close up", "aspect": "square", "alt": { "en": "Apple Watch on a wrist", "zh": "佩戴在腕上的 Apple Watch" } },
+      "background": "gradient"
+    },
+    {
+      "type": "features",
+      "id": "features",
+      "variant": "grid",
+      "columns": 3,
+      "eyebrow": { "en": "Health & Safety", "zh": "健康与安全" },
+      "heading": { "en": "A health innovator on your wrist", "zh": "腕上的健康创新者" },
+      "subheading": { "en": "Powerful sensors and features that look out for you, day and night.", "zh": "强大的传感器与功能，日夜守护你。" },
+      "background": "muted",
+      "items": [
+        {
+          "icon": "heart-pulse",
+          "title": { "en": "Heart rate & ECG", "zh": "心率与心电图" },
+          "body": { "en": "Track your heart rate around the clock and take an ECG anytime.", "zh": "全天候监测心率，随时记录心电图。" }
+        },
+        {
+          "icon": "droplets",
+          "title": { "en": "Blood oxygen", "zh": "血氧" },
+          "body": { "en": "Measure your blood oxygen level in seconds, on demand.", "zh": "几秒钟即可测量血氧水平，随测随得。" }
+        },
+        {
+          "icon": "moon",
+          "title": { "en": "Sleep tracking", "zh": "睡眠追踪" },
+          "body": { "en": "Understand your sleep stages and build healthier habits.", "zh": "了解睡眠阶段，养成更健康的作息。" }
+        },
+        {
+          "icon": "dumbbell",
+          "title": { "en": "100+ workouts", "zh": "100+ 种运动" },
+          "body": { "en": "Auto-detect activity and track over a hundred workout types.", "zh": "自动识别活动，追踪上百种运动类型。" }
+        },
+        {
+          "icon": "shield-check",
+          "title": { "en": "Fall & crash detection", "zh": "跌倒与碰撞检测" },
+          "body": { "en": "Get help automatically if a hard fall or severe crash is detected.", "zh": "检测到严重跌倒或撞车时自动求助。" }
+        },
+        {
+          "icon": "smartphone",
+          "title": { "en": "Seamless with iPhone", "zh": "无缝连接 iPhone" },
+          "body": { "en": "Calls, messages, Apple Pay and your apps — right on your wrist.", "zh": "通话、信息、Apple Pay 与各类 App，尽在腕间。" }
+        }
+      ]
+    },
+    {
+      "type": "about",
+      "id": "design",
+      "variant": "media-text",
+      "eyebrow": { "en": "Design", "zh": "设计" },
+      "heading": { "en": "Make it unmistakably yours", "zh": "打造专属于你的风格" },
+      "body": {
+        "en": "A stunning always-on display in a refined, durable case. Swap between sport bands, loops and bracelets in seconds, and choose from a huge range of watch faces — so your Apple Watch fits every outfit, workout and moment.",
+        "zh": "精致耐用的表壳，搭载惊艳的常亮显示屏。运动表带、回环与链式表带，几秒即可更换；海量表盘任你选择——让 Apple Watch 契合每一身穿搭、每一次锻炼、每一个时刻。"
+      },
+      "media": { "type": "unsplash", "query": "Apple Watch colorful bands collection", "aspect": "portrait", "alt": { "en": "Apple Watch bands", "zh": "Apple Watch 表带" } },
+      "background": "default"
+    },
+    {
+      "type": "stats",
+      "id": "specs",
+      "heading": { "en": "Built to keep up with you", "zh": "为你而生，始终在线" },
+      "background": "dark",
+      "items": [
+        { "value": "50", "suffix": "m", "label": { "en": "Water resistant", "zh": "防水深度" } },
+        { "value": "18", "suffix": "h", "label": { "en": "All-day battery", "zh": "全天候续航" } },
+        { "value": "100", "suffix": "+", "label": { "en": "Workout types", "zh": "运动类型" } }
+      ]
+    },
+    {
+      "type": "pricing",
+      "id": "models",
+      "eyebrow": { "en": "Models", "zh": "型号" },
+      "heading": { "en": "Find your Apple Watch", "zh": "找到适合你的 Apple Watch" },
+      "subheading": { "en": "Three models for every wrist, goal and budget.", "zh": "三款型号，适配每一只手腕、每一个目标与预算。" },
+      "background": "muted",
+      "plans": [
+        {
+          "name": { "en": "Apple Watch SE", "zh": "Apple Watch SE" },
+          "price": { "en": "from $249", "zh": "￥1,499 起" },
+          "period": { "en": "", "zh": "" },
+          "description": { "en": "The essentials, beautifully done.", "zh": "核心功能，精彩呈现。" },
+          "features": [
+            { "en": "Heart rate tracking", "zh": "心率监测" },
+            { "en": "Crash & fall detection", "zh": "碰撞与跌倒检测" },
+            { "en": "Fitness & sleep tracking", "zh": "健身与睡眠追踪" }
+          ],
+          "cta": { "label": { "en": "Choose SE", "zh": "选择 SE" }, "href": "#", "style": "ghost" }
+        },
+        {
+          "name": { "en": "Apple Watch Series 10", "zh": "Apple Watch Series 10" },
+          "price": { "en": "from $399", "zh": "￥2,999 起" },
+          "period": { "en": "", "zh": "" },
+          "description": { "en": "The most advanced everyday Apple Watch.", "zh": "最先进的日常 Apple Watch。" },
+          "features": [
+            { "en": "Everything in SE", "zh": "包含 SE 全部功能" },
+            { "en": "ECG & blood oxygen", "zh": "心电图与血氧" },
+            { "en": "Always-on display", "zh": "常亮显示屏" },
+            { "en": "Faster charging", "zh": "更快充电" }
+          ],
+          "cta": { "label": { "en": "Choose Series 10", "zh": "选择 Series 10" }, "href": "#", "style": "primary" },
+          "featured": true
+        },
+        {
+          "name": { "en": "Apple Watch Ultra 2", "zh": "Apple Watch Ultra 2" },
+          "price": { "en": "from $799", "zh": "￥6,499 起" },
+          "period": { "en": "", "zh": "" },
+          "description": { "en": "The most rugged and capable.", "zh": "最坚固强悍的型号。" },
+          "features": [
+            { "en": "Everything in Series 10", "zh": "包含 Series 10 全部功能" },
+            { "en": "Up to 36h battery", "zh": "续航长达 36 小时" },
+            { "en": "100m water resistance", "zh": "100 米防水" },
+            { "en": "Precision dual-frequency GPS", "zh": "精准双频 GPS" }
+          ],
+          "cta": { "label": { "en": "Choose Ultra 2", "zh": "选择 Ultra 2" }, "href": "#", "style": "ghost" }
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "id": "faq",
+      "heading": { "en": "Questions, answered", "zh": "常见问题" },
+      "background": "default",
+      "items": [
+        {
+          "q": { "en": "Do I need an iPhone to use Apple Watch?", "zh": "使用 Apple Watch 需要 iPhone 吗？" },
+          "a": { "en": "Yes — Apple Watch pairs with iPhone for setup and works best within the Apple ecosystem.", "zh": "需要。Apple Watch 需与 iPhone 配对设置，并在 Apple 生态中体验最佳。" }
+        },
+        {
+          "q": { "en": "Is Apple Watch water resistant?", "zh": "Apple Watch 防水吗？" },
+          "a": { "en": "Yes. Series and SE are water resistant to 50m; Ultra 2 to 100m — great for swimming and water sports.", "zh": "防水。Series 与 SE 防水深度达 50 米，Ultra 2 达 100 米，适合游泳与水上运动。" }
+        },
+        {
+          "q": { "en": "How long does the battery last?", "zh": "续航有多久？" },
+          "a": { "en": "All-day battery life of about 18 hours; Apple Watch Ultra 2 lasts up to 36 hours.", "zh": "全天候续航约 18 小时；Apple Watch Ultra 2 可长达 36 小时。" }
+        },
+        {
+          "q": { "en": "Can I take calls and texts on my wrist?", "zh": "可以在腕上接打电话、收发信息吗？" },
+          "a": { "en": "Yes — make calls, send messages, use Apple Pay and your favourite apps right from Apple Watch.", "zh": "可以。直接在 Apple Watch 上通话、收发信息、使用 Apple Pay 及你喜爱的各类 App。" }
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "get-started",
+      "heading": { "en": "There's a healthier you ahead.", "zh": "更健康的你，就在前方。" },
+      "subheading": { "en": "Find the Apple Watch that fits your life.", "zh": "找到契合你生活的那一款 Apple Watch。" },
+      "primaryCta": { "label": { "en": "Shop Apple Watch", "zh": "选购 Apple Watch" }, "href": "#models", "style": "primary" },
+      "secondaryCta": { "label": { "en": "Compare models", "zh": "比较型号" }, "href": "#models", "style": "secondary" },
+      "background": "primary"
+    }
+  ],
+  "footer": {
+    "tagline": { "en": "Your health. On your wrist.", "zh": "健康，戴在腕上。" },
+    "columns": [
+      {
+        "title": { "en": "Models", "zh": "型号" },
+        "links": [
+          { "label": { "en": "Apple Watch SE", "zh": "Apple Watch SE" }, "href": "#models" },
+          { "label": { "en": "Apple Watch Series 10", "zh": "Apple Watch Series 10" }, "href": "#models" },
+          { "label": { "en": "Apple Watch Ultra 2", "zh": "Apple Watch Ultra 2" }, "href": "#models" }
+        ]
+      },
+      {
+        "title": { "en": "Learn", "zh": "了解" },
+        "links": [
+          { "label": { "en": "Features", "zh": "功能" }, "href": "#features" },
+          { "label": { "en": "Design", "zh": "设计" }, "href": "#design" },
+          { "label": { "en": "FAQ", "zh": "常见问题" }, "href": "#faq" }
+        ]
+      }
+    ],
+    "socials": [
+      { "platform": "instagram", "href": "https://instagram.com" },
+      { "platform": "youtube", "href": "https://youtube.com" },
+      { "platform": "x", "href": "https://x.com" }
+    ],
+    "copyright": { "en": "An illustrative demo, not affiliated with Apple Inc.", "zh": "示例演示，与 Apple Inc. 无关联。" }
+  }
+}

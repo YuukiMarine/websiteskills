@@ -1,0 +1,35 @@
+---
+// Shared eyebrow + heading + subheading block used by most sections.
+import type { LocalizedText } from '../lib/site'
+import T from './primitives/T.astro'
+
+interface Props {
+  eyebrow?: LocalizedText
+  heading?: LocalizedText
+  subheading?: LocalizedText
+  align?: 'center' | 'left'
+  /** On dark/primary backgrounds, soften the subheading color. */
+  invert?: boolean
+}
+const { eyebrow, heading, subheading, align = 'center', invert = false } = Astro.props
+const hasHeader = !!(eyebrow || heading || subheading)
+const subColor = invert ? 'text-white/80' : 'text-[var(--color-muted-ink)]'
+---
+
+{
+  hasHeader && (
+    <div class:list={['animate-on-scroll max-w-3xl', align === 'center' && 'mx-auto text-center']}>
+      {eyebrow && (
+        <T
+          as="p"
+          class="ss-eyebrow mb-3 text-sm font-semibold uppercase tracking-wider text-primary"
+          text={eyebrow}
+        />
+      )}
+      {heading && (
+        <T as="h2" class="text-3xl font-bold tracking-tight md:text-4xl" text={heading} />
+      )}
+      {subheading && <T as="p" class={`mt-4 text-lg leading-relaxed ${subColor}`} text={subheading} />}
+    </div>
+  )
+}

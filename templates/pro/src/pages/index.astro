@@ -1,0 +1,42 @@
+---
+import { site } from '../lib/site'
+import Layout from '../components/Layout.astro'
+import Hero from '../components/sections/Hero.astro'
+import Logos from '../components/sections/Logos.astro'
+import Features from '../components/sections/Features.astro'
+import Services from '../components/sections/Services.astro'
+import About from '../components/sections/About.astro'
+import Stats from '../components/sections/Stats.astro'
+import Gallery from '../components/sections/Gallery.astro'
+import Pricing from '../components/sections/Pricing.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import Team from '../components/sections/Team.astro'
+import Faq from '../components/sections/Faq.astro'
+import CtaSection from '../components/sections/CtaSection.astro'
+import Contact from '../components/sections/Contact.astro'
+
+// Each `s.type === '…'` guard narrows the union, so `data={s}` is exactly typed.
+const sections = site.sections.filter((s) => s.visible !== false)
+---
+
+<Layout>
+  {
+    sections.map((s) => (
+      <Fragment>
+        {s.type === 'hero' && <Hero data={s} />}
+        {s.type === 'logos' && <Logos data={s} />}
+        {s.type === 'features' && <Features data={s} />}
+        {s.type === 'services' && <Services data={s} />}
+        {s.type === 'about' && <About data={s} />}
+        {s.type === 'stats' && <Stats data={s} />}
+        {s.type === 'gallery' && <Gallery data={s} />}
+        {s.type === 'pricing' && <Pricing data={s} />}
+        {s.type === 'testimonials' && <Testimonials data={s} />}
+        {s.type === 'team' && <Team data={s} />}
+        {s.type === 'faq' && <Faq data={s} />}
+        {s.type === 'cta' && <CtaSection data={s} />}
+        {s.type === 'contact' && <Contact data={s} />}
+      </Fragment>
+    ))
+  }
+</Layout>

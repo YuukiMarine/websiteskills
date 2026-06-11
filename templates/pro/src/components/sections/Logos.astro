@@ -1,0 +1,33 @@
+---
+import type { LogosSection } from '../../lib/site'
+import Section from '../Section.astro'
+import T from '../primitives/T.astro'
+
+interface Props {
+  data: LogosSection
+}
+const { data } = Astro.props
+---
+
+<Section id={data.id} background={data.background ?? 'default'}>
+  {
+    data.heading && (
+      <T
+        as="p"
+        class="animate-on-scroll mb-8 text-center text-sm font-semibold uppercase tracking-wider text-[var(--color-muted-ink)]"
+        text={data.heading}
+      />
+    )
+  }
+  <div class="animate-on-scroll flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-80">
+    {
+      data.logos.map((logo) =>
+        logo.media?.src ? (
+          <img src={logo.media.src} alt={logo.name} class="h-8 w-auto grayscale transition hover:grayscale-0" />
+        ) : (
+          <span class="text-lg font-bold tracking-tight text-[var(--color-muted-ink)]">{logo.name}</span>
+        )
+      )
+    }
+  </div>
+</Section>
