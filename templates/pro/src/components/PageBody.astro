@@ -1,0 +1,48 @@
+---
+// Renders an ordered list of sections. Shared by the home page (index.astro) and
+// every routed sub-page ([slug].astro), so the type→component dispatch lives in
+// exactly one place.
+import type { Section } from '../lib/site'
+import Hero from './sections/Hero.astro'
+import Logos from './sections/Logos.astro'
+import Features from './sections/Features.astro'
+import Services from './sections/Services.astro'
+import About from './sections/About.astro'
+import Stats from './sections/Stats.astro'
+import Gallery from './sections/Gallery.astro'
+import Posts from './sections/Posts.astro'
+import Pricing from './sections/Pricing.astro'
+import Testimonials from './sections/Testimonials.astro'
+import Team from './sections/Team.astro'
+import Faq from './sections/Faq.astro'
+import CtaSection from './sections/CtaSection.astro'
+import Contact from './sections/Contact.astro'
+
+interface Props {
+  sections: Section[]
+}
+const { sections } = Astro.props
+// Each `s.type === '…'` guard narrows the union, so `data={s}` is exactly typed.
+const visible = sections.filter((s) => s.visible !== false)
+---
+
+{
+  visible.map((s) => (
+    <Fragment>
+      {s.type === 'hero' && <Hero data={s} />}
+      {s.type === 'logos' && <Logos data={s} />}
+      {s.type === 'features' && <Features data={s} />}
+      {s.type === 'services' && <Services data={s} />}
+      {s.type === 'about' && <About data={s} />}
+      {s.type === 'stats' && <Stats data={s} />}
+      {s.type === 'gallery' && <Gallery data={s} />}
+      {s.type === 'posts' && <Posts data={s} />}
+      {s.type === 'pricing' && <Pricing data={s} />}
+      {s.type === 'testimonials' && <Testimonials data={s} />}
+      {s.type === 'team' && <Team data={s} />}
+      {s.type === 'faq' && <Faq data={s} />}
+      {s.type === 'cta' && <CtaSection data={s} />}
+      {s.type === 'contact' && <Contact data={s} />}
+    </Fragment>
+  ))
+}

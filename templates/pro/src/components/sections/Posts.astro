@@ -1,0 +1,86 @@
+---
+// Lightweight blog: a list of posts/news/updates as cards (or a compact list).
+// No separate article page — each item is a headline with date/summary + optional
+// cover and "read more" link. Used on a 'blog'/'news' sub-page or inline on home.
+import type { PostsSection } from '../../lib/site'
+import Section from '../Section.astro'
+import SectionHeader from '../SectionHeader.astro'
+import T from '../primitives/T.astro'
+import Cta from '../primitives/Cta.astro'
+import Media from '../primitives/Media.astro'
+
+interface Props {
+  data: PostsSection
+}
+const { data } = Astro.props
+const layout = data.layout ?? 'cards'
+---
+
+<Section id={data.id} background={data.background ?? 'default'}>
+  <SectionHeader eyebrow={data.eyebrow} heading={data.heading} subheading={data.subheading} />
+
+  <div
+    class:list={[
+      'mt-12',
+      layout === 'cards'
+        ? 'grid gap-6 sm:grid-cols-2 lg:grid-cols-3'
+        : 'mx-auto max-w-3xl divide-y divide-[var(--color-border)]',
+    ]}
+  >
+    {
+      data.items.map((item, i) =>
+        layout === 'cards' ? (
+          <article
+            class="ss-card animate-on-scroll flex flex-col overflow-hidden rounded-[var(--radius)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-card transition-shadow duration-200 hover:shadow-card-hover"
+            data-delay={String((i % 3) + 1)}
+          >
+            {item.media && <Media media={item.media} class="aspect-video w-full" />}
+            <div class="flex flex-1 flex-col p-6">
+              <div class="flex items-center gap-2 text-xs font-medium text-[var(--color-muted-ink)]">
+                {item.tag && (
+                  <span class="rounded-full bg-primary-light px-2 py-0.5 font-semibold text-primary">
+                    <T text={item.tag} />
+                  </span>
+                )}
+                {item.date && <span>{item.date}</span>}
+              </div>
+              <T as="h3" class="mt-3 text-lg font-semibold text-[var(--color-ink)]" text={item.title} />
+              {item.summary && (
+                <T
+                  as="p"
+                  class="mt-2 flex-1 text-[15px] leading-relaxed text-[var(--color-muted-ink)]"
+                  text={item.summary}
+                />
+              )}
+              {item.link && (
+                <div class="mt-4">
+                  <Cta cta={{ ...item.link, style: 'link' }} />
+                </div>
+              )}
+            </div>
+          </article>
+        ) : (
+          <article class="animate-on-scroll flex flex-col gap-1 py-6 first:pt-0">
+            <div class="flex items-center gap-2 text-xs font-medium text-[var(--color-muted-ink)]">
+              {item.tag && (
+                <span class="rounded-full bg-primary-light px-2 py-0.5 font-semibold text-primary">
+                  <T text={item.tag} />
+                </span>
+              )}
+              {item.date && <span>{item.date}</span>}
+            </div>
+            <T as="h3" class="text-lg font-semibold text-[var(--color-ink)]" text={item.title} />
+            {item.summary && (
+              <T as="p" class="text-[15px] leading-relaxed text-[var(--color-muted-ink)]" text={item.summary} />
+            )}
+            {item.link && (
+              <div class="mt-1">
+                <Cta cta={{ ...item.link, style: 'link' }} />
+              </div>
+            )}
+          </article>
+        )
+      )
+    }
+  </div>
+</Section>

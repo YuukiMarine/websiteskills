@@ -54,6 +54,8 @@ you can fill a credible draft — infer sensible defaults rather than interrogat
 - Industry / who their customers are
 - Primary goal of the site (get calls? bookings? sign-ups? sell? showcase?)
 - Languages (default to the language they're chatting in; offer bilingual)
+- Scope: a single page, or a multi-page site? Default to single-page; if they want more
+  (or a blog), offer the standard set and let them trim it (see §4.5)
 
 **Turn 2 — Substance:**
 - Their top 3–5 services/products (names + a sentence each)
@@ -95,8 +97,39 @@ Rules of thumb:
 - Use `stats` only with real numbers (2–4 items).
 - Alternate section `background` (default / muted) for visual rhythm; never two
   `dark` or two `primary` in a row.
+- `posts` is a lightweight news/updates list — use it for a blog page or a "latest news"
+  band; see §4.5 for multi-page sites.
 
 See `sections/` for the meaning, fields, and copy limits of each section type.
+
+---
+
+## 4.5 Single-page vs multi-page
+
+**Default to single-page** — one scrollable page (top-level `sections`) covers most SMBs
+and ships fastest. Choose **multi-page** when the customer has a lot to say, wants a blog,
+or explicitly asks.
+
+For multi-page, keep the home page in top-level `sections` (hero → a few highlights → cta),
+then add `pages[]`. Propose this **standard set** and let them add/remove before building:
+
+| Page | slug | typical sections |
+|------|------|------------------|
+| Home | (top-level `sections`) | hero → services/features → stats → cta |
+| About | `about` | about → team → (stats) |
+| Services | `services` | features or services → pricing? → faq |
+| Blog / News | `blog` | posts (lightweight: headlines + dates, no article pages) |
+| Contact | `contact` | contact |
+
+Rules:
+- Always **confirm the page list with the customer** ("I'll do Home, About, Services, a
+  Journal, and Contact — add or drop any?") before generating.
+- Navigation auto-derives (Home + each page). Set `nav.links` only to override.
+- The **blog is lightweight**: a `posts` section is headline cards with no separate article
+  page. Say so, and note full articles can be added later.
+- Don't pad — a 3-page site (Home / Services / Contact) is fine. Quality over page count.
+- The home page stays in top-level `sections`; only the *extra* pages go in `pages[]`.
+- A multi-page example is in `examples/multipage.site.json` — study it.
 
 ---
 

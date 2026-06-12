@@ -9,10 +9,17 @@ import { pick } from '../lib/i18n'
 import Nav from './Nav.astro'
 import Footer from './Footer.astro'
 
+interface Props {
+  title?: string
+  description?: string
+}
+const { title: pageTitle, description: pageDescription } = Astro.props
 const themeStyle = themeVars(site.theme)
 const tagline = site.brand.tagline ? pick(site.brand.tagline) : ''
-const title = tagline ? `${site.meta.siteName} · ${tagline}` : site.meta.siteName
-const description = pick(site.meta.description)
+const baseTitle = tagline ? `${site.meta.siteName} · ${tagline}` : site.meta.siteName
+// Sub-pages prefix their own title; the home page uses the brand + tagline.
+const title = pageTitle ? `${pageTitle} · ${site.meta.siteName}` : baseTitle
+const description = pageDescription ?? pick(site.meta.description)
 const themeColor = site.theme.primary ?? '#4f46e5'
 ---
 

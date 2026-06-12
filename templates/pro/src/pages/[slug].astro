@@ -1,0 +1,25 @@
+---
+// Routed sub-pages for a multi-page site. One page per entry in site.pages[].
+// Static-built: each becomes /<slug>. No pages[] → only the home page exists.
+import type { GetStaticPaths } from 'astro'
+import type { Page } from '../lib/site'
+import { site } from '../lib/site'
+import { pick } from '../lib/i18n'
+import Layout from '../components/Layout.astro'
+import PageBody from '../components/PageBody.astro'
+
+export const getStaticPaths = (() => {
+  return (site.pages ?? []).map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }))
+}) satisfies GetStaticPaths
+
+const { page } = Astro.props as { page: Page }
+const title = page.title ? pick(page.title) : pick(page.label)
+const description = page.description ? pick(page.description) : undefined
+---
+
+<Layout title={title} description={description}>
+  <PageBody sections={page.sections} />
+</Layout>

@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "siteName": "Atelier Nord",
+    "domain": "ateliernord.example",
+    "description": {
+      "en": "Atelier Nord is a Singapore brand & digital design studio crafting identities, websites, and products for ambitious teams.",
+      "zh": "北屿设计是一家新加坡品牌与数字设计工作室,为有追求的团队打造品牌识别、网站与数字产品。"
+    },
+    "keywords": ["brand design", "web design", "Singapore studio", "品牌设计", "网站设计"],
+    "languages": ["en", "zh"],
+    "defaultLanguage": "en"
+  },
+  "theme": {
+    "template": "pro",
+    "primary": "#4338ca",
+    "accent": "#f59e0b",
+    "neutral": "slate",
+    "font": { "heading": "Space Grotesk", "body": "Inter" },
+    "radius": "md",
+    "density": "comfortable"
+  },
+  "brand": {
+    "name": "Atelier Nord",
+    "logo": { "type": "text", "text": "Atelier Nord" },
+    "tagline": { "en": "Brand & digital design", "zh": "品牌与数字设计" }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "variant": "split",
+      "eyebrow": { "en": "Design studio · Singapore", "zh": "设计工作室 · 新加坡" },
+      "heading": { "en": "Design that earns attention — and keeps it.", "zh": "赢得注意力,并且留住它的设计。" },
+      "subheading": { "en": "We help founders and teams look as good as the work they do — from brand identity to the site that ships it.", "zh": "我们帮助创始人和团队,让形象配得上他们的实力——从品牌识别到上线的网站。" },
+      "bullets": [
+        { "en": "Brand identity & visual systems", "zh": "品牌识别与视觉系统" },
+        { "en": "Websites that convert", "zh": "高转化的网站" },
+        { "en": "Product & UI design", "zh": "产品与界面设计" }
+      ],
+      "primaryCta": { "label": { "en": "See our work", "zh": "查看作品" }, "href": "/services" },
+      "secondaryCta": { "label": { "en": "Start a project", "zh": "发起项目" }, "href": "/contact", "style": "ghost" },
+      "media": { "type": "unsplash", "query": "minimal design studio workspace", "aspect": "wide", "alt": { "en": "Studio workspace", "zh": "工作室空间" } }
+    },
+    {
+      "type": "services",
+      "eyebrow": { "en": "What we do", "zh": "我们的服务" },
+      "heading": { "en": "Three ways we help you stand out", "zh": "三种方式助你脱颖而出" },
+      "background": "muted",
+      "items": [
+        { "icon": "palette", "title": { "en": "Brand identity", "zh": "品牌识别" }, "body": { "en": "Logo, type, color, and the system that holds it together across every touchpoint.", "zh": "标志、字体、色彩,以及贯穿所有触点、让它们浑然一体的系统。" } },
+        { "icon": "layout", "title": { "en": "Web design", "zh": "网站设计" }, "body": { "en": "Fast, responsive marketing sites that turn visitors into customers.", "zh": "快速、响应式的营销网站,把访客变成客户。" } },
+        { "icon": "smartphone", "title": { "en": "Product & UI", "zh": "产品与界面" }, "body": { "en": "Interfaces for apps and dashboards — clear, usable, and on-brand.", "zh": "面向应用与仪表盘的界面——清晰、易用、契合品牌。" } }
+      ]
+    },
+    {
+      "type": "stats",
+      "items": [
+        { "value": "120", "suffix": "+", "label": { "en": "Projects shipped", "zh": "交付项目" } },
+        { "value": "9", "label": { "en": "Years in practice", "zh": "深耕年数" } },
+        { "value": "40", "suffix": "+", "label": { "en": "Brands launched", "zh": "上线品牌" } }
+      ]
+    },
+    {
+      "type": "cta",
+      "heading": { "en": "Have something in mind?", "zh": "已经有想法了?" },
+      "subheading": { "en": "Tell us about your project — we reply within a day.", "zh": "和我们聊聊你的项目——我们一天内回复。" },
+      "primaryCta": { "label": { "en": "Start a project", "zh": "发起项目" }, "href": "/contact" },
+      "background": "primary"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "about",
+      "label": { "en": "About", "zh": "关于" },
+      "title": { "en": "About the studio", "zh": "关于工作室" },
+      "description": { "en": "Who we are and how we work.", "zh": "我们是谁,以及我们如何工作。" },
+      "sections": [
+        {
+          "type": "about",
+          "variant": "text-media",
+          "eyebrow": { "en": "Our story", "zh": "我们的故事" },
+          "heading": { "en": "A small studio, by design", "zh": "刻意保持小而精" },
+          "body": { "en": "Atelier Nord was founded in 2017 on a simple idea: great design comes from focus, not headcount. We keep the team small so the people you meet are the people doing the work. We partner with founders, marketers, and product teams across Southeast Asia.", "zh": "北屿设计成立于 2017 年,理念很简单:优秀的设计源于专注,而非人数。我们刻意保持团队精简,所以你见到的人就是真正做事的人。我们与东南亚各地的创始人、市场人和产品团队合作。" },
+          "media": { "type": "unsplash", "query": "design team collaborating", "aspect": "square", "alt": { "en": "The team at work", "zh": "团队工作中" } }
+        },
+        {
+          "type": "team",
+          "eyebrow": { "en": "The people", "zh": "团队成员" },
+          "heading": { "en": "Who you'll work with", "zh": "与你并肩的人" },
+          "background": "muted",
+          "members": [
+            { "name": "Lin Wei", "role": { "en": "Founder · Creative Director", "zh": "创始人 · 创意总监" }, "bio": { "en": "Leads brand and art direction. Ex-agency, now happily small.", "zh": "主理品牌与艺术指导。曾任职大型代理公司,如今乐于小而美。" }, "photo": { "type": "unsplash", "query": "professional portrait designer", "aspect": "square" } },
+            { "name": "Maya Tan", "role": { "en": "Design Lead · Web", "zh": "设计主管 · 网站" }, "bio": { "en": "Turns brands into fast, beautiful sites that ship.", "zh": "把品牌转化为快速、美观、能上线的网站。" }, "photo": { "type": "unsplash", "query": "professional portrait woman", "aspect": "square" } }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "services",
+      "label": { "en": "Services", "zh": "服务" },
+      "title": { "en": "Services & pricing", "zh": "服务与价格" },
+      "sections": [
+        {
+          "type": "features",
+          "variant": "grid",
+          "columns": 2,
+          "eyebrow": { "en": "Engagements", "zh": "合作方式" },
+          "heading": { "en": "Pick the scope that fits", "zh": "选择合适的范围" },
+          "items": [
+            { "icon": "sparkles", "title": { "en": "Brand sprint", "zh": "品牌冲刺" }, "body": { "en": "A two-week intensive: identity, logo, and a mini guideline.", "zh": "为期两周的密集合作:识别、标志与精简规范。" } },
+            { "icon": "monitor", "title": { "en": "Website", "zh": "网站" }, "body": { "en": "Design and build of a marketing site, 4–8 pages.", "zh": "营销网站的设计与搭建,4–8 个页面。" } },
+            { "icon": "layers", "title": { "en": "Product design", "zh": "产品设计" }, "body": { "en": "Ongoing UI design for apps and dashboards.", "zh": "面向应用与仪表盘的持续界面设计。" } },
+            { "icon": "infinity", "title": { "en": "Design retainer", "zh": "设计长约" }, "body": { "en": "A monthly block of design hours for growing teams.", "zh": "为成长型团队提供的按月设计工时。" } }
+          ]
+        },
+        {
+          "type": "faq",
+          "eyebrow": { "en": "FAQ", "zh": "常见问题" },
+          "heading": { "en": "Good to know", "zh": "你可能想了解" },
+          "background": "muted",
+          "items": [
+            { "q": { "en": "How long does a project take?", "zh": "一个项目需要多久?" }, "a": { "en": "A brand sprint is two weeks; a typical website is four to six weeks.", "zh": "品牌冲刺为两周;一个典型网站为四到六周。" } },
+            { "q": { "en": "Do you work with overseas clients?", "zh": "你们接海外客户吗?" }, "a": { "en": "Yes — most of our work is remote across Southeast Asia and beyond.", "zh": "接的——我们大部分工作是远程的,覆盖东南亚及更广区域。" } }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "blog",
+      "label": { "en": "Journal", "zh": "动态" },
+      "title": { "en": "Journal", "zh": "工作室动态" },
+      "description": { "en": "Notes, news, and work from the studio.", "zh": "工作室的笔记、新闻与作品。" },
+      "sections": [
+        {
+          "type": "posts",
+          "layout": "cards",
+          "eyebrow": { "en": "Journal", "zh": "动态" },
+          "heading": { "en": "Latest from the studio", "zh": "工作室近况" },
+          "subheading": { "en": "Project launches, notes on craft, and the occasional opinion.", "zh": "项目上线、关于工艺的笔记,以及偶尔的观点。" },
+          "items": [
+            { "title": { "en": "We rebranded Kopi Labs", "zh": "我们为 Kopi Labs 重塑品牌" }, "date": "2026-05-20", "tag": { "en": "Project", "zh": "项目" }, "summary": { "en": "A warm, modern identity for a specialty coffee startup — from logo to packaging.", "zh": "为一家精品咖啡初创公司打造温暖现代的品牌识别——从标志到包装。" }, "media": { "type": "unsplash", "query": "coffee brand packaging", "aspect": "video" }, "link": { "label": { "en": "Read more", "zh": "阅读更多" }, "href": "#" } },
+            { "title": { "en": "Why we keep the team small", "zh": "我们为何保持小团队" }, "date": "2026-04-08", "tag": { "en": "Notes", "zh": "随笔" }, "summary": { "en": "Focus beats headcount. A short note on how we scope and ship.", "zh": "专注胜过人数。一篇关于我们如何界定范围并交付的短文。" }, "media": { "type": "unsplash", "query": "minimal desk notebook", "aspect": "video" }, "link": { "label": { "en": "Read more", "zh": "阅读更多" }, "href": "#" } },
+            { "title": { "en": "Now booking Q3 projects", "zh": "现已开放第三季度项目预约" }, "date": "2026-03-15", "tag": { "en": "News", "zh": "新闻" }, "summary": { "en": "We have two project slots open for the next quarter. Say hello.", "zh": "下一季度我们开放两个项目名额。欢迎来聊。" }, "media": { "type": "unsplash", "query": "calendar planning", "aspect": "video" }, "link": { "label": { "en": "Get in touch", "zh": "联系我们" }, "href": "/contact" } }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "label": { "en": "Contact", "zh": "联系" },
+      "title": { "en": "Start a project", "zh": "发起项目" },
+      "description": { "en": "Tell us about your project.", "zh": "和我们聊聊你的项目。" },
+      "sections": [
+        {
+          "type": "contact",
+          "eyebrow": { "en": "Contact", "zh": "联系我们" },
+          "heading": { "en": "Let's build something", "zh": "一起做点东西" },
+          "subheading": { "en": "Tell us what you're working on — we reply within one business day.", "zh": "告诉我们你在做什么——我们会在一个工作日内回复。" },
+          "showForm": true,
+          "formFields": ["name", "email", "company", "message"],
+          "showDetails": true
+        }
+      ]
+    }
+  ],
+  "nav": {
+    "cta": { "label": { "en": "Start a project", "zh": "发起项目" }, "href": "/contact" },
+    "sticky": true,
+    "showLangToggle": true
+  },
+  "footer": {
+    "tagline": { "en": "Brand & digital design, made in Singapore.", "zh": "品牌与数字设计,新加坡出品。" },
+    "columns": [
+      { "title": { "en": "Studio", "zh": "工作室" }, "links": [ { "label": { "en": "About", "zh": "关于" }, "href": "/about" }, { "label": { "en": "Services", "zh": "服务" }, "href": "/services" }, { "label": { "en": "Journal", "zh": "动态" }, "href": "/blog" } ] },
+      { "title": { "en": "Get in touch", "zh": "联系" }, "links": [ { "label": { "en": "Contact", "zh": "联系" }, "href": "/contact" } ] }
+    ],
+    "socials": [ { "platform": "instagram", "href": "#" }, { "platform": "linkedin", "href": "#" } ],
+    "copyright": { "en": "© 2026 Atelier Nord. All rights reserved.", "zh": "© 2026 北屿设计。保留所有权利。" }
+  },
+  "contact": {
+    "email": "hello@ateliernord.example",
+    "phone": "+65 6123 4567",
+    "address": { "en": "71 Ayer Rajah Crescent, Singapore", "zh": "新加坡 Ayer Rajah Crescent 71 号" },
+    "hours": { "en": "Mon–Fri, 9:30–18:00", "zh": "周一至周五 9:30–18:00" }
+  }
+}

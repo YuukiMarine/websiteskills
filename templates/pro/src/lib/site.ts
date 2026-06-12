@@ -84,6 +84,18 @@ export interface GallerySection extends SectionBase {
   variant?: 'grid' | 'masonry' | 'carousel'
   items: { media: Media; caption?: LocalizedText }[]
 }
+export interface PostsSection extends SectionBase {
+  type: 'posts'
+  layout?: 'cards' | 'list'
+  items: {
+    title: LocalizedText
+    date?: string
+    summary?: LocalizedText
+    media?: Media
+    tag?: LocalizedText
+    link?: Cta
+  }[]
+}
 export interface PricingSection extends SectionBase {
   type: 'pricing'
   plans: {
@@ -130,6 +142,7 @@ export type Section =
   | AboutSection
   | StatsSection
   | GallerySection
+  | PostsSection
   | PricingSection
   | TestimonialsSection
   | TeamSection
@@ -190,12 +203,21 @@ export interface ContactInfo {
   mapEmbed?: string
   hours?: LocalizedText
 }
+export interface Page {
+  slug: string
+  label: LocalizedText
+  title?: LocalizedText
+  description?: LocalizedText
+  showInNav?: boolean
+  sections: Section[]
+}
 export interface Site {
   meta: Meta
   theme: Theme
   brand: Brand
   nav?: Nav
   sections: Section[]
+  pages?: Page[]
   footer?: Footer
   contact?: ContactInfo
   integrations?: Record<string, unknown>

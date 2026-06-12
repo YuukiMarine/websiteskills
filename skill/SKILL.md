@@ -28,10 +28,11 @@ site, or portfolio — e.g. "build me a site", "我想做个网站", "update my 
 Reference files — load with `skill_view("sitesmith", "<path>")` only when needed:
 
 - `references/site.schema.json` — the contract every `site.json` MUST satisfy
-- `references/sections.md` — the 13 section types: when to use, fields, copy limits
+- `references/sections.md` — the 14 section types (incl. `posts`): when to use, fields, copy limits
 - `references/theme.md` — theme tokens (template, colors, fonts, radius, density)
 - `references/assets.md` — image strategy (placeholder / unsplash; never invent assets)
-- `references/examples/innoe.site.json` — a complete, validated example (use as few-shot)
+- `references/examples/innoe.site.json` — a complete single-page example (few-shot)
+- `references/examples/multipage.site.json` — a multi-page + blog example (few-shot)
 
 Scripts — run via the terminal tool:
 
@@ -47,19 +48,28 @@ Scripts — run via the terminal tool:
    - Business name + one line on what they do; industry + who their customers are.
    - Primary goal (calls / bookings / sign-ups / sell / showcase).
    - Languages — default to the chat language; offer bilingual (e.g. en + zh).
+   - **Scope: one page or multi-page?** Default to single-page. If they want more (or
+     mention a blog), offer the standard set (Home / About / Services / Blog / Contact)
+     and let them trim it — confirm the page list before building.
    - Top 3–5 services/products; what makes them different; any real numbers; contact
      details + the main call-to-action.
    - Vibe in a word or two (→ `theme`); assets (logo? brand color? real photos?).
-   - If the user is terse or says "just make it nice", proceed on sensible defaults.
+   - If the user is terse or says "just make it nice", proceed on sensible defaults
+     (a single page is the safe default).
 
-2. **Draft `site.json`** conforming to `references/site.schema.json`. Study the example
-   first. Pick **5–8 sections** that match real content (see `references/sections.md` for
-   the goal→section-spine map). Choose the look (see `references/theme.md`): **either**
-   pick a styled template (`newchinese`/`cyber`/`portfolio`) when the brand has a strong,
-   obvious aesthetic, **or — the default —** use `template:"pro"` and **design a bespoke
-   palette yourself** (`primary`/`accent`/`neutral`/`font`/`radius`/`density`) from the
-   business's feeling, so each site is one-of-a-kind. Handle every image per
-   `references/assets.md`.
+2. **Draft `site.json`** conforming to `references/site.schema.json`. Study the matching
+   example first (`innoe.site.json` for single-page, `multipage.site.json` for multi-page).
+   Pick **5–8 sections per page** that match real content (see `references/sections.md` for
+   the goal→section-spine map).
+   - **Single-page:** everything goes in the top-level `sections`.
+   - **Multi-page:** home stays in top-level `sections`; add `pages[]` (one entry per
+     sub-page, each with its own `sections`). Navigation auto-derives from the pages. A
+     blog is a page with a `posts` section (lightweight: headline cards, no article pages).
+   Choose the look (see `references/theme.md`): **either** pick a styled template
+   (`newchinese`/`cyber`/`portfolio`) when the brand has a strong, obvious aesthetic,
+   **or — the default —** use `template:"pro"` and **design a bespoke palette yourself**
+   (`primary`/`accent`/`neutral`/`font`/`radius`/`density`) from the business's feeling,
+   so each site is one-of-a-kind. Handle every image per `references/assets.md`.
 
 3. **Validate.** Run `validate.mjs`. On failure, read the errors, fix the JSON, re-run.
    Never proceed with an invalid file.
@@ -68,10 +78,11 @@ Scripts — run via the terminal tool:
    If `UNSPLASH_ACCESS_KEY` is set, render auto-swaps `unsplash` placeholders for real
    photos (credited); without it, themed placeholders render — both are fine to ship.
 
-5. **Preview & iterate.** Summarize in plain language what you built ("a 6-section
-   bilingual site: hero, services, about, stats, testimonials, contact") and ask for
-   edits. Apply edits by re-emitting the **complete** `site.json`, then re-validate +
-   re-render.
+5. **Preview & iterate.** Summarize in plain language what you built ("a 5-page bilingual
+   site: Home, About, Services, Journal, Contact" — or "a 6-section single page"). **Tell
+   the user the site stays fully editable** — they can ask you anytime to add/remove pages
+   or sections, rewrite copy, change colors, or add blog posts. Apply edits by re-emitting
+   the **complete** `site.json`, then re-validate + re-render.
 
 6. **Deploy** (only after the user approves the preview). Run `deploy.sh <out-dir>
    <domain>` → live over Nginx with HTTPS. Report the live URL.
@@ -90,6 +101,9 @@ Scripts — run via the terminal tool:
   two `primary` in a row. Always open with `hero`, close with `cta` or `contact`.
 - **No compliance-risky claims** — no invented certifications, endorsements, government
   subsidies/grants, awards, or statistics the user did not state.
+- **Single-page is the default.** Only add `pages[]` when the user wants a richer/multi-page
+  site or a blog — and confirm the page list with them first. The blog (`posts`) is a
+  headlines list, not full articles; say so, and note articles can be added later.
 
 ## Verification
 

@@ -103,25 +103,15 @@
 
     "sections": {
       "type": "array",
-      "description": "Ordered page blocks. The renderer outputs them top-to-bottom. Pick only the section types that fit the customer's business.",
+      "description": "Ordered blocks for the HOME page (/), rendered top-to-bottom. Pick only the section types that fit the customer's business. For extra routed pages (about, services, blog…), use `pages`.",
       "minItems": 1,
-      "items": {
-        "oneOf": [
-          { "$ref": "#/$defs/HeroSection" },
-          { "$ref": "#/$defs/LogosSection" },
-          { "$ref": "#/$defs/FeaturesSection" },
-          { "$ref": "#/$defs/ServicesSection" },
-          { "$ref": "#/$defs/AboutSection" },
-          { "$ref": "#/$defs/StatsSection" },
-          { "$ref": "#/$defs/GallerySection" },
-          { "$ref": "#/$defs/PricingSection" },
-          { "$ref": "#/$defs/TestimonialsSection" },
-          { "$ref": "#/$defs/TeamSection" },
-          { "$ref": "#/$defs/FaqSection" },
-          { "$ref": "#/$defs/CtaSection" },
-          { "$ref": "#/$defs/ContactSection" }
-        ]
-      }
+      "items": { "$ref": "#/$defs/Section" }
+    },
+
+    "pages": {
+      "type": "array",
+      "description": "Optional sub-pages for a MULTI-PAGE site. `sections` above is the home page (/); each entry here is one additional routed page, e.g. /about, /services, /blog. OMIT entirely for a single-page site — single-page is the default. A lightweight blog is simply a page whose sections include a `posts` block.",
+      "items": { "$ref": "#/$defs/Page" }
     },
 
     "footer": {
@@ -256,6 +246,46 @@
       "properties": {
         "platform": { "type": "string", "enum": ["x", "linkedin", "facebook", "instagram", "youtube", "tiktok", "github", "wechat", "whatsapp", "telegram", "email"] },
         "href": { "type": "string" }
+      }
+    },
+
+    "Section": {
+      "description": "Any one content block, discriminated by `type`. Shared by the home `sections` and every page's `sections`.",
+      "oneOf": [
+        { "$ref": "#/$defs/HeroSection" },
+        { "$ref": "#/$defs/LogosSection" },
+        { "$ref": "#/$defs/FeaturesSection" },
+        { "$ref": "#/$defs/ServicesSection" },
+        { "$ref": "#/$defs/AboutSection" },
+        { "$ref": "#/$defs/StatsSection" },
+        { "$ref": "#/$defs/GallerySection" },
+        { "$ref": "#/$defs/PostsSection" },
+        { "$ref": "#/$defs/PricingSection" },
+        { "$ref": "#/$defs/TestimonialsSection" },
+        { "$ref": "#/$defs/TeamSection" },
+        { "$ref": "#/$defs/FaqSection" },
+        { "$ref": "#/$defs/CtaSection" },
+        { "$ref": "#/$defs/ContactSection" }
+      ]
+    },
+
+    "Page": {
+      "description": "One routed sub-page in a multi-page site. Renders at /<slug>.",
+      "type": "object",
+      "required": ["slug", "label", "sections"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "URL segment → /<slug>. Unique across pages. e.g. 'about', 'services', 'blog'." },
+        "label": { "$ref": "#/$defs/LocalizedText", "description": "Navigation label for this page." },
+        "title": { "$ref": "#/$defs/LocalizedText", "description": "Optional browser <title> / SEO title; defaults to label." },
+        "description": { "$ref": "#/$defs/LocalizedText", "description": "Optional meta description for this page." },
+        "showInNav": { "type": "boolean", "default": true, "description": "Whether this page appears in the top navigation." },
+        "sections": {
+          "type": "array",
+          "description": "This page's content blocks, top-to-bottom.",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/Section" }
+        }
       }
     },
 
@@ -609,6 +639,39 @@
           "default": ["name", "email", "message"]
         },
         "showDetails": { "type": "boolean", "default": true, "description": "Show email/phone/address from top-level contact{}." }
+      }
+    },
+
+    "PostsSection": {
+      "description": "A list of posts / news / updates as cards — a lightweight blog. Each item is a headline with date/summary and an optional cover and 'read more' link; there is NO separate article page. Put one on a 'blog' or 'news' sub-page, or inline on the home page.",
+      "type": "object",
+      "required": ["type", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "posts" },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "eyebrow": { "$ref": "#/$defs/LocalizedText" },
+        "heading": { "$ref": "#/$defs/LocalizedText" },
+        "subheading": { "$ref": "#/$defs/LocalizedText" },
+        "background": { "type": "string", "enum": ["default", "muted", "dark", "primary", "gradient"] },
+        "layout": { "type": "string", "enum": ["cards", "list"], "default": "cards" },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["title"],
+            "additionalProperties": false,
+            "properties": {
+              "title": { "$ref": "#/$defs/LocalizedText" },
+              "date": { "type": "string", "description": "Display date, e.g. '2026-06-01' or 'June 2026'." },
+              "summary": { "$ref": "#/$defs/LocalizedText", "description": "1–3 sentence excerpt." },
+              "media": { "$ref": "#/$defs/Media", "description": "Optional cover image." },
+              "tag": { "$ref": "#/$defs/LocalizedText", "description": "Optional category label." },
+              "link": { "$ref": "#/$defs/Cta", "description": "Optional 'read more' link (external URL or anchor)." }
+            }
+          }
+        }
       }
     }
   }

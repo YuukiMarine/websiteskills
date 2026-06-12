@@ -9,7 +9,15 @@ General rules:
   `background`, `visible`. Only `hero`'s and `cta`'s headings are structurally
   required; others read better with one.
 - Alternate `background` for rhythm. Never stack two `dark` or two `primary`.
-- Pick 5–8 sections total. Each section must map to content the customer can supply.
+- Pick 5–8 sections total **per page**. Each section must map to content the customer can supply.
+
+### Single-page vs multi-page
+By default a site is **one page**: everything lives in the top-level `sections[]`. For a
+richer site, add `pages[]` — each entry is a routed sub-page (`/about`, `/services`,
+`/blog`, `/contact`) with its own `sections[]`; the home page stays in the top-level
+`sections`. Navigation is auto-derived (Home + each page that keeps `showInNav`). A
+lightweight **blog** is just a page whose sections include a `posts` block. Keep each page
+focused — don't repeat the same section on every page.
 
 ---
 
@@ -57,6 +65,19 @@ Image-first grid/carousel for portfolios, products, venues, food.
 - **Fields:** `variant` (grid | masonry | carousel), `items[]` `{media, caption?}`.
 - Needs real photos to shine. With none, use several `unsplash` items with good
   `query` terms, or omit.
+
+## posts  ·  *lightweight blog / news, optional*
+A list of updates as cards (or a compact list) — a **lightweight blog**. Each item is a
+headline + date + summary, with an optional cover and "read more" link; there is **no
+separate article page**. Put one on a `blog`/`news` sub-page (see Single-page vs multi-page
+above), or inline near the end of the home page.
+- **Fields:** `layout` (cards | list), `items[]` `{title, date?, summary?, media?, tag?,
+  link?}`.
+- **Copy:** title ≤10 words; summary 1–2 sentences. `date` is a display string
+  ("2026-06-01" or "June 2026"). Use `link` to point at an external post/announcement; omit
+  it if there's nowhere to go yet.
+- If the customer wants a true blog with full articles, explain it's a headlines list for
+  now — full article pages can be added later.
 
 ## pricing  ·  *plans, optional*
 1–4 plan cards. Use **only if prices are public**.

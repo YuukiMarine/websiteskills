@@ -31,10 +31,12 @@ cpSync(resolve(root, 'templates/pro'), tpl, {
   filter: (src) => !/[/\\](node_modules|dist|\.astro|\.claude)([/\\]|$)/.test(src),
 })
 
-console.log('• validating bundled example against bundled schema')
-execFileSync('node', [resolve(skill, 'scripts/validate.mjs'), resolve(refs, 'examples/innoe.site.json')], {
-  stdio: 'inherit',
-})
+console.log('• validating bundled examples against bundled schema')
+for (const ex of ['innoe.site.json', 'multipage.site.json']) {
+  execFileSync('node', [resolve(skill, 'scripts/validate.mjs'), resolve(refs, `examples/${ex}`)], {
+    stdio: 'inherit',
+  })
+}
 
 console.log(`✅ skill assembled at ${skill}`)
 console.log('   → copy this directory to ~/.hermes/skills/sitesmith/ on the customer box')
